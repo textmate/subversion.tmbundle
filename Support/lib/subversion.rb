@@ -1,4 +1,5 @@
 require ENV['TM_SUPPORT_PATH'] + '/lib/tm_process'
+require ENV['TM_SUPPORT_PATH'] + '/lib/escape'
 require ENV['TM_SUPPORT_PATH'] + '/lib/exit_codes'
 
 module Subversion
@@ -9,7 +10,7 @@ module Subversion
     end
 
     def run(*cmd, &error_handler)
-      out, err = TextMate::Process.run([svn, cmd].flatten, :sync => true)
+      out, err = TextMate::Process.run([svn, *cmd], :sync => true)
 
       if $? != 0
         if error_handler.nil?
@@ -20,6 +21,14 @@ module Subversion
       else
         return out
       end
+    end
+
+    def status(*dirs) 
+      Subversion.run("status", *dirs).scan(/^(.....)(\s+)(.*)\n/)
+    end
+
+    def commit(*args)
+      Subversion.run("commit", *args)
     end
 
   end
