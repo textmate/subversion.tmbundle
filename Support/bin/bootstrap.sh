@@ -12,4 +12,4 @@ shift
 
 bin=$(dirname "$0")
 
-$TM_RUBY "$bin/$script.rb" $@
+$TM_RUBY "$bin/$script.rb" $@ > /dev/console

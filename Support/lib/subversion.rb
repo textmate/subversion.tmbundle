@@ -22,5 +22,13 @@ module Subversion
       end
     end
 
+    def status(*dirs)
+      Subversion.run("status", *dirs).scan(/^(.....)(\s+)(.*)\n/)
+    end
+
+    def commit(*args)
+      Subversion.run("commit", *args)
+    end
+
   end
 end

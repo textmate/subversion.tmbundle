@@ -7,7 +7,6 @@
 # 
 
 location = File.dirname(__FILE__)
-puts location
 
 require "#{ENV["TM_SUPPORT_PATH"]}/lib/osx/plist"
 require "#{ENV["TM_SUPPORT_PATH"]}/lib/ui"
@@ -17,7 +16,7 @@ require "#{ENV["TM_SUPPORT_PATH"]}/lib/escape"
 require "#{location}/svn_log_parser.rb"
 
 $nib = "#{location}/nibs/RevisionSelector.nib"
-$tm_dialog = "#{ENV["TM_SUPPORT_PATH"]}/bin/tm_dialog"
+$tm_dialog = ENV['DIALOG']
 
 module Subversion
 	
@@ -103,6 +102,7 @@ module Subversion
 
 		# Show the log
 		revision = 0
+		
 		TextMate::UI.dialog(:nib => ListNib,
 														:center => true,
 														:parameters => {'title' => prompt,'entries' => [], 'hideProgressIndicator' => false}) do |dialog|
@@ -131,6 +131,7 @@ module Subversion
 			end
 
 			dialog.wait_for_input do |params|
+			  puts "waiting"
 				revision = params['returnArgument']
 				STDERR.puts params['returnButton']
 #				STDERR.puts "Want:#{number_of_revisions} got:#{revision.length}"
@@ -161,8 +162,8 @@ end
 
 if __FILE__ == $0
 	
-#	test_path = "~/Library/Application Support/TextMate/Bundles/Ada.tmbundle"
-	test_path = "~/TestRepo/TestFiles"
+	test_path = "/Users/daleyl/Library/Application Support/TextMate/Support/lib"
+#	test_path = "~/TestRepo/TestFiles"
 	
-	Subversion.choose_revision_of_path(test_path)
+	Subversion.choose_revision(test_path, 2)
 end
