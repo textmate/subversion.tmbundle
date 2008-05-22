@@ -12,7 +12,14 @@ module Subversion
       "added" => "A",
       "deleted" => "D",
       "conflicted" => "C",
-      "unversioned" => "?"
+      "unversioned" => "?",
+      "external" => "X",
+      "ignored" => "I",
+      "incomplete" => "!",
+      "missing" => "!",
+      "obstructed" => '~',
+      "replaced" => 'R',
+      "unversioned" => '?'
     }
     @@status_code_mapping.default = "K"
     
@@ -22,7 +29,14 @@ module Subversion
     
     def commit_window_code_string()
       codes = @doc.elements.collect("status/*/entry/wc-status") do |status| 
-        status_to_commit_window_code(status.attributes["item"], status.attributes["props"], status.attributes["copied"])
+        status_to_commit_window_code(
+          status.attributes["item"], 
+          status.attributes["props"], 
+          status.attributes["copied"] == "true",
+          status.attributes["wc-locked"] == "true",
+          status.attributes["switched"] == "true",
+          status.get_elements('lock').size > 0
+        )
       end
       codes.join(':')
     end
@@ -31,8 +45,15 @@ module Subversion
       @doc.elements.collect("status/*/entry") { |entry| entry.attributes["path"] }
     end
     
-    def status_to_commit_window_code(item,props,copied)
-      @@status_code_mapping[item] + @@status_code_mapping[props] + ((copied == "true") ? "+" : "" )
+    def status_to_commit_window_code(item, props, copied, wc_locked, switched, lock)
+      [
+        @@status_code_mapping[item],
+        @@status_code_mapping[props],
+        (copied) ? "+" : "",
+        (wc_locked) ? "L" : "",
+        (switched) ? "S" : "",
+        (lock) ? "K" : ""
+      ].join('')
     end
   end
 end
