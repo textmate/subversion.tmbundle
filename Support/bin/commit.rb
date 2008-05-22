@@ -7,41 +7,43 @@ require "#{ENV['TM_SUPPORT_PATH']}/lib/ui"
 require "#{ENV['TM_SUPPORT_PATH']}/lib/shelltokenize"
 require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/commit_transaction"
 
-$options = OpenStruct.new(
+options = OpenStruct.new(
   :output_format => :HTML,
   :dry_run => false
 )
 
-opts = OptionParser.new do |opts|
-  opts.banner = "Usage: #{File.basename(__FILE__)} [options] [files]"
-  opts.separator ""
-  opts.separator "Specific options:"
+optparser = OptionParser.new do |optparser|
+  optparser.banner = "Usage: #{File.basename(__FILE__)} [options] [files]"
+  optparser.separator ""
+  optparser.separator "Specific options:"
 
-  opts.on("--output=TYPE", [:HTML, :plaintext, :terminal], "Select format of output (HTML, plaintext, terminal).")   do |format|
-    $options.output_format = format
+  optparser.on("--output=TYPE", [:HTML, :plaintext, :terminal], "Select format of output (HTML, plaintext, terminal).")   do |format|
+    options.output_format = format
   end
 
-  opts.on_tail("--help", "Display help.") do
-    puts opts
+  optparser.on_tail("--help", "Display help.") do
+    puts optparser
     exit
   end
 
-  opts.on_tail("--dry-run", "Go through the motions, but don't actually commit anything.") do
-    $options.dry_run = true
+  optparser.on_tail("--dry-run", "Go through the motions, but don't actually commit anything.") do
+    options.dry_run = true
   end
 end
 
-opts.parse!
+optparser.parse!
+
 paths_to_commit = (ARGV.empty?) ? TextMate::selected_paths_array : ARGV
 transaction = Subversion::CommitTransaction.new(ENV['TM_PROJECT_DIRECTORY'] || ENV['TM_DIRECTORY'], paths_to_commit)
 
 if transaction.has_mods?
-  case $options.output_format
+  case options.output_format
   when :plaintext
     out = transaction.commit
     puts out unless out.nil?
   when :HTML
-    out = transaction.commit(true)
+    transaction.show_progress = true
+    out = transaction.commit
     unless out.nil?
       revision_string = $& if out =~ /Committed revision \d*./
 
@@ -57,7 +59,7 @@ else
   transaction.paths.each do | path |
     str = " • " + path + "\n"
   end
-  case $options.output_format
+  case options.output_format
   when :plaintext
     puts str
   when :HTML
