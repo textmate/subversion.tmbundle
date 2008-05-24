@@ -45,7 +45,7 @@ module Subversion
         "--action-cmd", "A:Mark Executable,#{@commit_helper},propset,svn:executable,true",
         "--action-cmd", "A,M,D,C:Revert,#{@commit_helper},revert",
         "--action-cmd", "C:Resolved,#{@commit_helper},resolved",
-        @status.paths
+        @status.paths((@base =~ /\/$/) ? base : "#{base}/")
       )
       
       ::TextMate.exit_show_tool_tip err unless err.empty?
@@ -53,17 +53,17 @@ module Subversion
       commit_args = Shellwords.shellwords(out)
       
       unless @dryrun
-        if ($CHILD_STATUS != 0)
+        if ($? != 0)
           nil # User cancelled
         else
-          out = ""
-          commit = proc { out = Subversion.commit("--force-log", *commit_args) }
+          result = nil
+          commit = proc { result = Subversion.commit("--force-log", *commit_args) }
           if show_progress
             TextMate.call_with_progress(:title => 'Subversion Commit', :message => 'Transmitting file data', &commit)
           else
             commit.call
           end
-          out
+          result
         end
       end
     end

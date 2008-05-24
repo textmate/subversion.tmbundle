@@ -1,4 +1,3 @@
-require 'English'
 require 'ostruct'
 require 'pathname'
 require 'optparse'
@@ -8,7 +7,7 @@ require "#{ENV['TM_SUPPORT_PATH']}/lib/shelltokenize"
 require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/commit_transaction"
 
 options = OpenStruct.new(
-  :output_format => :HTML,
+  :output_format => :TM,
   :dry_run => false
 )
 
@@ -17,7 +16,8 @@ optparser = OptionParser.new do |optparser|
   optparser.separator ""
   optparser.separator "Specific options:"
 
-  optparser.on("--output=TYPE", [:HTML, :plaintext, :terminal], "Select format of output (HTML, plaintext, terminal).")   do |format|
+  output_formats = [:TM, :plaintext]
+  optparser.on("--output=TYPE", output_formats, "Select format of output #{output_formats.inspect}.")   do |format|
     options.output_format = format
   end
 
@@ -37,32 +37,25 @@ paths_to_commit = (ARGV.empty?) ? TextMate::selected_paths_array : ARGV
 transaction = Subversion::CommitTransaction.new(ENV['TM_PROJECT_DIRECTORY'] || ENV['TM_DIRECTORY'], paths_to_commit)
 
 if transaction.has_mods?
-  case options.output_format
-  when :plaintext
-    out = transaction.commit
-    puts out unless out.nil?
-  when :HTML
-    transaction.show_progress = true
-    out = transaction.commit
-    unless out.nil?
-      revision_string = $& if out =~ /Committed revision \d*./
-
-      TextMate::UI.simple_notification(
-        :title => 'Commit Result',
-        :summary => (revision_string || 'Error occurred'),
-        :log => out
-      )
+  transaction.show_progress = (options.output_format == :TM)
+  result = transaction.commit
+  unless result.nil?
+    if result.commits?
+      case options.output_format
+      when :plaintext
+        puts result.out
+      when :TM
+        TextMate::UI.alert(:informational, result.to_s, result.files.map{ |file| "• #{file}" }.join("\n"), "OK")
+      end
     end
   end
 else
-  str = "No files modified; nothing to commit.\n" 
-  transaction.paths.each do | path |
-    str = " • " + path + "\n"
-  end
+  header = "No files modified; nothing to commit"
+  body = transaction.paths.map{ |path| "• #{path}" }.join("\n")
   case options.output_format
   when :plaintext
-    puts str
-  when :HTML
-    TextMate::UI.simple_notification(:title => 'Commit Result', :summary => "No files modified; nothing to commit.", :log => str)
+    puts "#{header}\n\n#{body}"
+  when :TM
+    TextMate::UI.alert(:informational, header, body, "OK")
   end
 end

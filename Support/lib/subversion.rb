@@ -3,6 +3,7 @@ require ENV['TM_SUPPORT_PATH'] + '/lib/escape'
 require ENV['TM_SUPPORT_PATH'] + '/lib/exit_codes'
 
 require File.dirname(__FILE__) + '/status_listing'
+require File.dirname(__FILE__) + '/commit_result'
 
 module Subversion
   class << self
@@ -30,7 +31,7 @@ module Subversion
     end
 
     def commit(*args)
-      Subversion.run("commit", *args)
+      CommitResult.new(Subversion.run("commit", *args))
     end
 
   end
