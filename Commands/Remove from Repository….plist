@@ -1,39 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>require_cmd "${TM_SVN:=svn}" "If you have installed svn, then you need to either update your &lt;tt&gt;PATH&lt;/tt&gt; or set the &lt;tt&gt;TM_SVN&lt;/tt&gt; shell variable (e.g. in Preferences / Advanced)"
-
-if [[ -z "$TM_SELECTED_FILES" &amp;&amp; -z $TM_FILEPATH ]]; then
-   exit_show_tool_tip "No files selected."
+	<string>if [ "$TM_SELECTED_FILES" ]
+then
+	eval tmsvn_bootstrap.sh remove "$TM_SELECTED_FILES"
+else
+	eval tmsvn_bootstrap.sh remove "$TM_FILEPATH"
 fi
 
-file_list () {
-   if [[ -n "$TM_SELECTED_FILES" ]]; then
-      eval arr=("$TM_SELECTED_FILES")
-      for (( i = 0; i &lt; ${#arr[@]}; i++ )); do
-         FILE="${arr[$i]}"
-         echo "${FILE##$TM_PROJECT_DIRECTORY/}"
-      done
-   else
-      echo "$TM_FILENAME"
-   fi
-}
-
-rv=$(CocoaDialog textbox --float --title "Remove from Repository" \
-   --string-output --no-newline --informative-text \
-   "These files will be scheduled for deletion during the next commit." \
-   --text "$(file_list|sort -f)" --button1 "Delete" --button2 "Cancel")
-
-if [[ "$rv" == "Delete" ]]; then
-   if [[ -n "$TM_SELECTED_FILES" ]];
-      then eval "$TM_SVN" rm "$TM_SELECTED_FILES"
-      else      "$TM_SVN" rm "$TM_FILEPATH"
-   fi
-fi
+rescan_project
 </string>
 	<key>input</key>
 	<string>none</string>
