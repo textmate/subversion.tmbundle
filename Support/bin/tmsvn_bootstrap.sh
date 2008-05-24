@@ -13,7 +13,7 @@ shift
 
 if [ "$FIRST" == "-d" ]
 then
-    $TM_RUBY "$bin/tmsvn.rb" $@ >& /dev/null &
+    $TM_RUBY "$bin/tmsvn.rb" "$@" >& /dev/null &
 else
-    $TM_RUBY "$bin/tmsvn.rb" $FIRST $@
+    $TM_RUBY "$bin/tmsvn.rb" "$FIRST" "$@"
 fi
