@@ -21,7 +21,7 @@ module Subversion
       "replaced" => 'R',
       "unversioned" => '?'
     }
-    @@status_code_mapping.default = "K"
+    @@status_code_mapping.default = ""
     
     def initialize(out)
       @doc = REXML::Document.new(out)
