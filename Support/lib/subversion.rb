@@ -1,6 +1,6 @@
 require ENV['TM_SUPPORT_PATH'] + '/lib/tm/process'
 require ENV['TM_SUPPORT_PATH'] + '/lib/escape'
-require ENV['TM_SUPPORT_PATH'] + '/lib/exit_codes'
+require ENV['TM_SUPPORT_PATH'] + '/lib/ui'
 
 require File.dirname(__FILE__) + '/status_listing'
 require File.dirname(__FILE__) + '/commit_result'
@@ -17,7 +17,8 @@ module Subversion
 
       if $? != 0
         if error_handler.nil?
-          TextMate.exit_show_tool_tip err
+          TextMate::UI.alert(:critical, "The 'svn' command produced an error", err, "OK")
+          exit 1
         else
           error_handler.call(err)
         end
