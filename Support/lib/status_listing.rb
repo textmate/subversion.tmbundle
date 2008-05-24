@@ -41,8 +41,12 @@ module Subversion
       codes.join(':')
     end
     
-    def paths
-      @doc.elements.collect("status/*/entry") { |entry| entry.attributes["path"] }
+    def paths(base = nil)
+      base = Regexp.escape(base) if base
+      @doc.elements.collect("status/*/entry") do |entry| 
+        path = entry.attributes["path"]
+        base ? path.sub(/^#{base}/, '') : path
+      end
     end
     
     def status_to_commit_window_code(item, props, copied, wc_locked, switched, lock)
