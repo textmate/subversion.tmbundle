@@ -1,9 +1,12 @@
 require ENV['TM_SUPPORT_PATH'] + '/lib/tm/process'
 require ENV['TM_SUPPORT_PATH'] + '/lib/escape'
 require ENV['TM_SUPPORT_PATH'] + '/lib/ui'
+require ENV['TM_SUPPORT_PATH'] + '/lib/progress'
 
-require File.dirname(__FILE__) + '/status_listing'
-require File.dirname(__FILE__) + '/commit_result'
+dir = File.dirname(__FILE__)
+require dir + '/status_listing'
+require dir + '/commit_result'
+require dir + '/log'
 
 module Subversion
   class << self
@@ -34,6 +37,15 @@ module Subversion
     def commit(*args)
       CommitResult.new(Subversion.run("commit", *args))
     end
-
+    
+    def log(quiet, file)
+      log_getter = Proc.new { Log.new(Subversion.run("log", "--xml", file)) }
+      if quiet
+        log_getter.call
+      else
+        TextMate::call_with_progress(:title => "svn log", :message => "Reading log of #{File.basename(file)}", &log_getter)
+      end
+    end
+    
   end
 end
