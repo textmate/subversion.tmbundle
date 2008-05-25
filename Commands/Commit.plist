@@ -5,7 +5,14 @@
 	<key>beforeRunningCommand</key>
 	<string>saveModifiedFiles</string>
 	<key>command</key>
-	<string>tmsvn_bootstrap.sh -d commit</string>
+	<string>if [ "$TM_SELECTED_FILES" ]
+then
+	eval tmsvn_bootstrap.sh -d commit "$TM_SELECTED_FILES"
+else
+	tmsvn_bootstrap.sh add -d commit "$TM_FILEPATH"
+fi
+
+rescan_project</string>
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>

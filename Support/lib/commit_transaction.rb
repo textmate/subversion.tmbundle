@@ -12,11 +12,7 @@ module Subversion
     attr_accessor :base
     attr_accessor :paths
     attr_accessor :status
-    attr_accessor :diff
-    attr_accessor :commit_window
-    attr_accessor :commit_helper
     attr_accessor :show_progress
-    attr_accessor :dryrun
 
     def initialize(base, paths)
       @base = (@base =~ /\/$/) ? base : "#{base}/"
@@ -27,7 +23,6 @@ module Subversion
       @commit_window = ENV['CommitWindow'] || ENV['TM_SUPPORT_PATH'] + '/bin/CommitWindow.app/Contents/MacOS/CommitWindow'
       @commit_helper = ENV['TM_BUNDLE_SUPPORT'] + "/bin/commit_helper.rb"
       @show_progress = false
-      @dryrun = false
     end
 
     def has_mods?
@@ -57,19 +52,17 @@ module Subversion
       
       commit_args = Shellwords.shellwords(out)
       
-      unless @dryrun
-        if ($? != 0)
-          nil # User cancelled
+      if ($? != 0)
+        nil # User cancelled
+      else
+        result = nil
+        commit = proc { result = Subversion.commit("--force-log", *commit_args) }
+        if show_progress
+          TextMate.call_with_progress(:title => 'Subversion Commit', :message => 'Transmitting file data', &commit)
         else
-          result = nil
-          commit = proc { result = Subversion.commit("--force-log", *commit_args) }
-          if show_progress
-            TextMate.call_with_progress(:title => 'Subversion Commit', :message => 'Transmitting file data', &commit)
-          else
-            commit.call
-          end
-          result
+          commit.call
         end
+        result
       end
     end
 
