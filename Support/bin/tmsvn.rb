@@ -7,8 +7,8 @@ TextMate::UI.alert(:critical, "An SVN Bundle error occurred", "tmsvn.rb received
 script = ARGV.shift
 out,err = TextMate::Process.run(ENV['TM_RUBY'], "#{File.dirname(__FILE__)}/#{script}.rb", ARGV)
 
-if $? != 0 and not err.empty?
-  TextMate::UI.alert(:critical, "An error occurred within the Subverion bundle", err, "OK")
+if $? != 0
+  TextMate::UI.alert(:critical, "An error occurred within the Subverion bundle", err, "OK") if not err.empty?
   TextMate.exit_discard
 end
 
