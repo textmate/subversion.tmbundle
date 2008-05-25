@@ -19,7 +19,7 @@ module Subversion
     attr_accessor :dryrun
 
     def initialize(base, paths)
-      @base = base
+      @base = (@base =~ /\/$/) ? base : "#{base}/"
       Dir.chdir(@base)
       @paths = paths
       @status = Subversion.status(@paths)
@@ -33,7 +33,12 @@ module Subversion
     def has_mods?
       not @status.paths.empty?
     end
-
+    
+    def relative_paths
+      escaped_base = Regexp.escape(@base)
+      paths.map { |p| p.sub(/^#{escaped_base}/, '') }
+    end
+    
     def commit()
       
       out, err = ::TextMate::Process.run(
@@ -45,7 +50,7 @@ module Subversion
         "--action-cmd", "A:Mark Executable,#{@commit_helper},propset,svn:executable,true",
         "--action-cmd", "A,M,D,C:Revert,#{@commit_helper},revert",
         "--action-cmd", "C:Resolved,#{@commit_helper},resolved",
-        @status.paths((@base =~ /\/$/) ? base : "#{base}/")
+        @status.paths(@base)
       )
       
       ::TextMate.exit_show_tool_tip err unless err.empty?

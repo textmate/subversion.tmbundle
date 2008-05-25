@@ -34,7 +34,8 @@ end
 optparser.parse!
 
 paths_to_commit = (ARGV.empty?) ? TextMate::selected_paths_array : ARGV
-transaction = Subversion::CommitTransaction.new(ENV['TM_PROJECT_DIRECTORY'] || ENV['TM_DIRECTORY'], paths_to_commit)
+base = ENV['TM_PROJECT_DIRECTORY'] || ENV['TM_DIRECTORY'] || Dir.pwd
+transaction = Subversion::CommitTransaction.new(base, paths_to_commit)
 
 if transaction.has_mods?
   transaction.show_progress = (options.output_format == :TM)
@@ -51,7 +52,7 @@ if transaction.has_mods?
   end
 else
   header = "No files modified; nothing to commit"
-  body = transaction.paths.map{ |path| "• #{path}" }.join("\n")
+  body = transaction.relative_paths.map{ |path| "• #{path}" }.join("\n")
   case options.output_format
   when :plaintext
     puts "#{header}\n\n#{body}"
