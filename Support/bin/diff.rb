@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require 'optparse'
 require 'tempfile'
 require 'pathname'
@@ -9,7 +11,7 @@ require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/diff_operation"
 require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/revision_chooser"
 
 base = nil
-revision = nil
+revision = 'BASE'
 send_to_mate = false
 
 optparser = OptionParser.new do |optparser|
