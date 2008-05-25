@@ -38,7 +38,7 @@ module Subversion
       
       out, err = ::TextMate::Process.run(
         @commit_window,
-        "--diff-cmd", "#{Subversion.svn},diff,--diff-cmd,#{@diff}",
+        "--diff-cmd", "#{File.dirname(__FILE__)}/../bin/diff.rb,--revision=BASE",
         "--status", @status.commit_window_code_string,
         "--action-cmd", "!:Remove,#{@commit_helper},rm",
         "--action-cmd", "?:Add,#{@commit_helper},add",
