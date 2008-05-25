@@ -11,7 +11,7 @@ module Subversion
     end
 
     def log
-      @log ||= Subversion.log(false, @path) if @log.nil?
+      @log ||= Subversion.log(@path)
     end
 
     def revision

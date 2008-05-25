@@ -38,9 +38,9 @@ module Subversion
       CommitResult.new(Subversion.run("commit", *args))
     end
     
-    def log(quiet, file)
-      log_getter = Proc.new { Log.new(Subversion.run("log", "--xml", file)) }
-      if quiet
+    def log(file, options = {:quiet => false, :verbose => false})
+      log_getter = Proc.new { Subversion::XmlLogParser.new(Subversion.run("log", "--xml", (options[:verbose]) ? '--verbose' : nil, file)).log }
+      if options[:quiet]
         log_getter.call
       else
         TextMate::call_with_progress(:title => "svn log", :message => "Reading log of #{File.basename(file)}", &log_getter)
