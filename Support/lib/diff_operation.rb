@@ -20,11 +20,11 @@ module Subversion
       end
     end
     
-    def diff(quiet = false)
+    def diff
       diff_op = Proc.new do
         Dir.chdir(@base) { Subversion.run("diff", "-r", @revision, *@files) }
       end
-      if quiet
+      if @revision == 'BASE'
         diff_op.call
       else
         TextMate::call_with_progress(:title => "svn diff", :message => "Fetching diff (#{@revision})", &diff_op)
