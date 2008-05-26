@@ -10,9 +10,7 @@ then
 	eval tmsvn_bootstrap.sh -d commit "$TM_SELECTED_FILES"
 else
 	tmsvn_bootstrap.sh -d commit "$TM_FILEPATH"
-fi
-
-rescan_project</string>
+fi</string>
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>
