@@ -5,7 +5,13 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>tmsvn_bootstrap.sh diff --revision=HEAD "$TM_FILEPATH"</string>
+	<string>if [ "$TM_SELECTED_FILES" ]
+then
+	eval tmsvn_bootstrap.sh diff --revision=HEAD "$TM_SELECTED_FILES"
+else
+	tmsvn_bootstrap.sh diff --revision=HEAD "$TM_FILEPATH"
+fi
+</string>
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>
