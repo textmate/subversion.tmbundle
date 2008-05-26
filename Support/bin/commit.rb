@@ -34,7 +34,7 @@ unless ARGV.empty?
         when :plaintext
           puts result.out
         when :TM
-          TextMate::UI.alert(:informational, result.to_s, result.files.map{ |file| "• #{file}" }.join("\n"), "OK")
+          TextMate::UI.alert(:informational, result.to_s, result.files.map{ |file| "• #{file}" }.join("\n"), "OK") if ENV['TM_SVN_SUPPRESS_COMMIT_NOTIFICATION'].nil?
         end
       end
     end
