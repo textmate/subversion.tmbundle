@@ -2,6 +2,8 @@
 /* = Subversion Styles = */
 /* ===================== */
 
+@import "../common.css";
+
 div.subversion {
 	margin-top: 10px;
 }

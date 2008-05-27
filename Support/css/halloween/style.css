@@ -2,6 +2,8 @@
 /* = Subversion Styles = */
 /* ===================== */
 
+@import "../common.css";
+
 .halloween div.subversion {
 	color: #FFF;
 }

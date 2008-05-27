@@ -2,6 +2,8 @@
 /* = Subversion Styles = */
 /* ===================== */
 
+@import "../common.css";
+
 /* INFO */
 
 .bright div.subversion dl.info.alternate dt {

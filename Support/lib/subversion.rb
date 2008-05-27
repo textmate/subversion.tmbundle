@@ -7,6 +7,7 @@ dir = File.dirname(__FILE__)
 require dir + '/status_listing'
 require dir + '/commit_result'
 require dir + '/log'
+require dir + '/update_result'
 
 module Subversion
   class << self
@@ -47,5 +48,23 @@ module Subversion
       end
     end
     
+    def update(base, files, options = {:quiet => false})
+      result = nil
+      updater = Proc.new do
+        Dir.chdir(base) do
+          update_text = Subversion.run("update", *files)
+          result = Subversion::UpdateResult::PlainTextParser.new(base, update_text).update_result
+        end
+      end        
+      if options[:quiet]
+        updater.call
+      else
+        TextMate::call_with_progress(
+          :title => "svn update", 
+          :message => "Updating #{File.basename(base)}#{" (selection)" unless files.empty?}", 
+          &updater
+        )
+      end
+    end
   end
 end

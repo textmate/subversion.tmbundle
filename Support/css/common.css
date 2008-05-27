@@ -1,0 +1,72 @@
+table.status {
+	border-collapse:collapse;
+	border:none;
+	width:100%;
+}
+table.status td {
+	border:none;
+}
+
+table.status tr:hover .diff,
+table.status tr:hover .revert,
+table.status tr:hover .remove,
+table.status tr:hover .add {
+	background: #fff;
+}
+table.status tr:hover .file {
+	background: #f9f9f9;
+}
+
+.diff, .remove, .add, .revert {
+	background-color: #f9f9f9;
+}
+
+.diff, .remove, .add, .revert,
+.diff *, .remove *, .add *, .revert * {
+    display:     block;
+    float:       none;
+    text-align:  center;
+    font-size:   9px;
+    color:       #294666;
+    font-weight: bold;
+    padding: 0;
+}
+
+.file {
+	width: 100%;
+	text-align: left !important;
+}
+
+table.status {
+	font-size: 93%;
+}
+
+table.status .status_col {
+	text-align: center;
+}
+
+/* A */
+table.status td.added {
+	color:      green;
+	background: #bbffb3;
+}
+/* M */
+table.status td.modified, td.updated, td.merged {
+	color:      #eb6400;
+	background: #f7e1ad;
+}
+/* D */
+table.status td.deleted, td.replaced {
+	color:      red;
+	background: #f59696;
+}
+/* C, !, " */
+table.status td.conflict, table.status td.missing, table.status td.typeconflict {
+	color:      teal;
+	background: #A3CED0;
+}
+/* ?, I, X */
+table.status td.unknown, table.status td.ignored, table.status td.external {
+	color:      purple;
+	background: #edaef5;
+}
