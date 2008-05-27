@@ -4,6 +4,9 @@ require File.dirname(__FILE__) + '/status_codes'
 module Subversion
   class UpdateResult
     
+    # FIXME 
+    # This will fail for non english languages.
+    # Not sure how to interpret the svn up output in a language safe way at this point.
     class PlainTextParser
       attr_reader :update_result
       def initialize(base, text)
