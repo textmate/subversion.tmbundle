@@ -1,11 +1,11 @@
 require "#{ENV["TM_SUPPORT_PATH"]}/lib/ui"
-require "#{File.dirname(__FILE__)}/subversion.rb"
+require "#{File.dirname(__FILE__)}/../subversion.rb"
 
 module Subversion
 
   class RevisionChooser
 
-    @@nib = "#{File.dirname(__FILE__)}/../nibs/RevisionSelector.nib"
+    @@nib = "#{File.dirname(__FILE__)}/../../nibs/RevisionSelector.nib"
     def initialize(path)
       @path = path
     end

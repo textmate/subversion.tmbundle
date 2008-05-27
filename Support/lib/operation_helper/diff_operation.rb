@@ -4,7 +4,7 @@ location = File.dirname(__FILE__)
 
 require "#{ENV['TM_SUPPORT_PATH']}/lib/ui"
 require "#{ENV['TM_SUPPORT_PATH']}/lib/progress"
-require "#{location}/subversion"
+require "#{location}/../subversion"
 
 module Subversion
   class DiffOperation

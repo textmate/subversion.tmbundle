@@ -1,5 +1,5 @@
 require 'erb'
-require File.dirname(__FILE__) + '/../lib/update_result'
+require File.dirname(__FILE__) + '/../model/update_result'
 require ENV['TM_SUPPORT_PATH'] + '/lib/web_preview'
 
 module Subversion

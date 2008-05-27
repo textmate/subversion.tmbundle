@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + "/status_codes"
+require File.dirname(__FILE__) + "/../util/status_codes"
 require "rexml/document"
 require 'time'
 

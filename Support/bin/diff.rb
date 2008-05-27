@@ -7,8 +7,8 @@ require 'pathname'
 require "#{ENV['TM_SUPPORT_PATH']}/lib/ui"
 require "#{ENV['TM_SUPPORT_PATH']}/lib/exit_codes"
 require "#{ENV['TM_SUPPORT_PATH']}/lib/tm/process"
-require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/diff_operation"
-require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/revision_chooser"
+require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/operation_helper/diff_operation"
+require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/operation_helper/revision_chooser"
 
 base = nil
 revision = 'BASE'

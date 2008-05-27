@@ -1,5 +1,5 @@
 require 'pathname'
-require File.dirname(__FILE__) + '/status_codes'
+require File.dirname(__FILE__) + '/../util/status_codes'
 
 module Subversion
   class UpdateResult

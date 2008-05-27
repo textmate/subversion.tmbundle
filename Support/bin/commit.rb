@@ -2,7 +2,7 @@ require 'optparse'
 
 require "#{ENV['TM_SUPPORT_PATH']}/lib/ui"
 require "#{ENV['TM_SUPPORT_PATH']}/lib/textmate"
-require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/commit_transaction"
+require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/operation_helper/commit_transaction"
 
 output_format = :TM
 

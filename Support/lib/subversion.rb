@@ -4,10 +4,10 @@ require ENV['TM_SUPPORT_PATH'] + '/lib/ui'
 require ENV['TM_SUPPORT_PATH'] + '/lib/progress'
 
 dir = File.dirname(__FILE__)
-require dir + '/status_listing'
-require dir + '/commit_result'
-require dir + '/log'
-require dir + '/update_result'
+require dir + '/model/status_listing'
+require dir + '/model/commit_result'
+require dir + '/model/log'
+require dir + '/model/update_result'
 
 module Subversion
   class << self

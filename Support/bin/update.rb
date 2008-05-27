@@ -2,7 +2,7 @@ require "#{ENV['TM_SUPPORT_PATH']}/lib/ui"
 require "#{ENV['TM_SUPPORT_PATH']}/lib/exit_codes"
 require "#{ENV['TM_SUPPORT_PATH']}/lib/textmate"
 require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/subversion"
-require "#{ENV['TM_BUNDLE_SUPPORT']}/view/update_result_html"
+require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/view/update_result_html"
 
 base = ENV['TM_PROJECT_DIRECTORY'] || ENV['TM_DIRECTORY'] || Dir.pwd
 ARGV.delete_if { |f| f == base }
