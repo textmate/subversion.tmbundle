@@ -1,6 +1,7 @@
 require 'optparse'
 
 require "#{ENV['TM_SUPPORT_PATH']}/lib/ui"
+require "#{ENV['TM_SUPPORT_PATH']}/lib/textmate"
 require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/commit_transaction"
 
 output_format = :TM
@@ -30,6 +31,7 @@ unless ARGV.empty?
     result = transaction.commit
     unless result.nil?
       if result.commits?
+        TextMate.rescan_project
         case output_format
         when :plaintext
           puts result.out

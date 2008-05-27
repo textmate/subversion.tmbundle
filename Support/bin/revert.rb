@@ -1,5 +1,6 @@
 require 'optparse'
 require "#{ENV['TM_SUPPORT_PATH']}/lib/ui"
+require "#{ENV['TM_SUPPORT_PATH']}/lib/textmate"
 require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/subversion"
 
 path_base = nil
@@ -30,5 +31,6 @@ unless files.empty?
 
   if TextMate::UI.request_confirmation(:title => title, :button1 => "Revert", :prompt => display_files.map{|f| "• #{f}"}.join("\n"))
     STDOUT << Subversion.run("revert", files)
+    TextMate.rescan_project
   end  
 end
