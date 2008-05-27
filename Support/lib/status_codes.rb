@@ -19,6 +19,22 @@ module Subversion
       "unversioned" => '?'
     }
     
+    def self.copied
+      "+"
+    end
+    
+    def wc_locked
+      "L"
+    end
+    
+    def switched
+      "S"
+    end
+    
+    def locked
+      "K"
+    end
+    
     def self.status(code)
       @@status_code_mapping.index(code)
     end

@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + "/subversion"
+require File.dirname(__FILE__) + "/status_codes"
 require "rexml/document"
 require 'time'
 
@@ -58,24 +58,6 @@ module Subversion
   end
 
   class StatusListing
-
-    @@status_code_mapping = {
-      "none" => "",
-      "normal" => "",
-      "modified" => "M",
-      "added" => "A",
-      "deleted" => "D",
-      "conflicted" => "C",
-      "unversioned" => "?",
-      "external" => "X",
-      "ignored" => "I",
-      "incomplete" => "!",
-      "missing" => "!",
-      "obstructed" => '~',
-      "replaced" => 'R',
-      "unversioned" => '?'
-    }
-    @@status_code_mapping.default = ""
     
     def initialize(targets)
       @targets = targets
@@ -109,14 +91,14 @@ module Subversion
       paths.flatten
     end
     
-    def status_to_commit_window_code(item, props, copied, wc_locked, switched, lock)
+    def status_to_commit_window_code(item, props, copied, wc_locked, switched, locked)
       [
-        @@status_code_mapping[item],
-        @@status_code_mapping[props],
-        (copied) ? "+" : "",
-        (wc_locked) ? "L" : "",
-        (switched) ? "S" : "",
-        (lock) ? "K" : ""
+        StatusCodes.code(item),
+        StatusCodes.code(props),
+        (copied) ? StatusCodes.copied : "",
+        (wc_locked) ? StatusCodes.wc_locked : "",
+        (switched) ? StatusCodes.switched : "",
+        (locked) ? StatusCodes.locked : ""
       ].join('')
     end
   end
