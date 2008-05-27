@@ -17,3 +17,5 @@ then
 else
     $TM_RUBY "$bin/tmsvn.rb" "$FIRST" "$@"
 fi
+
+exit $?
