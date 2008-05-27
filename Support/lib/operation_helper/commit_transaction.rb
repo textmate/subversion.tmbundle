@@ -47,8 +47,7 @@ module Subversion
         "--action-cmd", "C:Resolved,#{@commit_helper},resolved",
         @status.paths(@base)
       )
-      
-      ::TextMate.exit_show_tool_tip err unless err.empty?
+      abort "Commit Window produced an error: #{err}" unless err.empty?
       
       commit_args = Shellwords.shellwords(out)
       
