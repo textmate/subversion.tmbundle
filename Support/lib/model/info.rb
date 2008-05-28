@@ -49,9 +49,9 @@ module Subversion
         when 'schedule'
           @wc_info.schedule = @text
         when 'text-updated'
-          @working_copy_info.text_updated = Time.xmlschema(@text)
+          @wc_info.text_updated = Time.xmlschema(@text)
         when 'checksum'
-          @working_copy_info.checksum = @text
+          @wc_info.checksum = @text
         when 'wc-info'
           @entry.wc_info = @wc_info
         when'author'

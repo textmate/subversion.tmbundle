@@ -8,6 +8,7 @@ require dir + '/model/status_listing'
 require dir + '/model/commit_result'
 require dir + '/model/log'
 require dir + '/model/update_result'
+require dir + '/model/info'
 
 module Subversion
   class << self
@@ -65,6 +66,12 @@ module Subversion
           &updater
         )
       end
+    end
+    
+    def info(base, *files)
+      Dir.chdir(base) do
+        Subversion::Info::XmlParser.new(Subversion.run("info", "--xml", *files)).info
+      end      
     end
   end
 end
