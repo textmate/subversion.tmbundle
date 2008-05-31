@@ -44,7 +44,7 @@ module Subversion
       end
 
       def absolute_path
-        @parent_result.base + "/" + @relative_path
+        "#{@parent_result.base}/#{@relative_path}"
       end
       
       def tm_url
@@ -56,7 +56,7 @@ module Subversion
     attr_accessor :revision
     
     def initialize(base, revision, updates = false)
-      @base = Pathname(base).realpath
+      @base = Pathname.new(base).realpath
       @revision = revision
       @items = []
       @updates = updates
@@ -77,8 +77,7 @@ module Subversion
 end
 
 if __FILE__ == $0
-  result = Subversion::UpdateResult::PlainTextParser.new("/", "U    pom.xml.old
-  Updated to revision 273.
-  ").update_result
+  result = Subversion::UpdateResult::PlainTextParser.new("/bin", STDIN.read).update_result
   p result
+  result.items.each { |e| puts e.absolute_path }
 end
