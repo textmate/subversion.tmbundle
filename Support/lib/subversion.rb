@@ -105,7 +105,19 @@ module Subversion
           &catter
         )
       end
-
     end
+
+    def diff_url(url, revision, user_options = {})
+      options = {:quiet => false, :change => false}.merge! user_options
+      differ = Proc.new do
+        Subversion.run("diff", (options[:change] ? "-c" : "-r"), revision, url)
+      end
+      if options[:quiet]
+        differ.call
+      else
+        TextMate::call_with_progress(:title => "svn diff", :message => "Fetching diff (#{revision})", &differ)
+      end
+    end
+
   end
 end

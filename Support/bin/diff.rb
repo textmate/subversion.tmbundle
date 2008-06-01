@@ -11,7 +11,9 @@ require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/operation_helper/revision_chooser"
 
 base = nil
 revision = 'BASE'
+change = false
 send_to_mate = false
+is_url = false
 
 optparser = OptionParser.new do |optparser|
   optparser.banner = "Usage: #{File.basename(__FILE__)} [options] [files]"
@@ -26,10 +28,17 @@ optparser = OptionParser.new do |optparser|
     send_to_mate = s
   end
 
+  optparser.on("--url", "") do |u|
+    is_url = u
+  end
+
   optparser.on("--revision=REVISION", "") do |r|
     revision = r
   end
 
+  optparser.on("--change", "") do |c|
+    change = c
+  end
 end
 
 optparser.parse!
@@ -45,8 +54,14 @@ unless files.empty?
     revision = (revision == '?') ? chooser.revision : chooser.range
     exit 0 if revision.nil?
   end
-    
-  diff = Subversion.diff_files(base,revision,files)
+  
+  diff = ""
+  if is_url
+    diff = Subversion.diff_url(files, revision, :change => change)
+  else
+    diff = Subversion.diff_files(base,revision,files)
+  end
+  
   if diff.empty?
     TextMate::UI.alert(:warning, "No differences to show", "The selected files/revisions are identical.", "OK")
     TextMate.exit_discard

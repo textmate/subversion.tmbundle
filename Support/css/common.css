@@ -1,3 +1,87 @@
+/* general stuff.. */
+body {
+   font-family: "Lucida Grande", sans-serif;
+   font-size: 13px;
+}
+
+h1 {
+   font-size: 24px;
+   text-shadow: #ddd 2px 3px 3px;
+}
+
+/* make horizontal rules slightly less heavy */
+hr {
+color: #ccc;
+background-color: #ccc;
+height: 1px;
+border: 0px;
+}
+
+/* enable word-wrap for text in <pre> */
+pre {
+word-wrap: break-word;
+}
+
+/* for error formating.. */
+div.error {
+   font-family: "Bitstream Vera Sans Mono", monospace;
+   font-size: 12px;
+   color: #f30;
+   background-color: #fee;
+   border: 2px solid #f52;
+   padding: 4px;
+   margin: 3px;
+}
+
+div.error h2 {
+   font-family: "Lucida Grande", sans-serif;
+   font-size: 17px;
+   margin-top: 0;
+}
+
+div.error a:link, div.error a:visited {
+   background-color: transparent;
+   color: inherit;
+}
+div.error a:hover, div.error a:active {
+   background-color: #f52;
+   text-decoration: none;
+   color: #fee;
+}
+
+/* for showing the path or other information about the current operation */
+div.command {
+   color: #03f;
+   background-color: #eef;
+   border: 2px solid #25f;
+   padding: 4px;
+   margin: 3px;
+   font-family: "Bitstream Vera Sans Mono", monospace;
+   font-size: 12px;
+}
+
+div.command h2 {
+   font-family: "Lucida Grande", sans-serif;
+   font-size: 15px;
+   margin-top: 0;
+}
+
+
+/* about links.. */
+a:link, a:visited {
+   background-color: transparent;
+   color: #35a;
+   text-decoration: underline;
+   padding-left: 1px;
+   padding-right: 1px;
+}
+
+a:hover, a:active {
+   background-color: #136;
+   color: #fff;
+   text-decoration: none;
+}
+
 table.status {
 	border-collapse:collapse;
 	border:none;
@@ -69,4 +153,121 @@ table.status td.conflict, table.status td.missing, table.status td.typeconflict 
 table.status td.unknown, table.status td.ignored, table.status td.external {
 	color:      purple;
 	background: #edaef5;
+}
+
+dl.info dt {
+   font-weight: bold;
+   padding: 4px;
+   padding-bottom: 0;
+   margin: 0;
+   border-top: 1px dashed #ddd;
+}
+
+dl.info.alternate dt {
+   border-top: 1px dashed #ccc;
+}
+
+dl.info dt:first-child {
+   border-top: 0;
+}
+
+dl.info dt:after {
+   content: ":";
+}
+
+dl.info dd {
+   margin: 0;
+   padding: 4px;
+   padding-top: 0;
+   padding-left: 24px;
+}
+
+.hidden {
+   display: none;
+}
+
+
+table.log {
+   font-size: inherit;
+   width: 100%;
+   margin-bottom: 5px;
+}
+
+
+table.log th {
+   text-align: right;
+   padding-left: 5px;
+   vertical-align: top;
+   white-space: nowrap;
+}
+
+table.log td {
+   vertical-align: top;
+   width: 100%;
+}
+
+
+td.msg_field {
+   font-family: "Bitstream Vera Sans Mono", monospace;
+   font-size: 12px;
+}
+
+
+table.log td ul {
+   list-style-type: none;
+   padding-left: 4px;
+}
+
+/* this the list of changed files: */
+table.log td ul li {
+   font-size: 12px;
+   margin-bottom: 2px;
+   padding: 1px;
+}
+
+li.added:before, li.modified:before, li.deleted:before, li.replaced:before {
+   font-family: "Bitstream Vera Sans Mono", monospace;
+   font-weight: bold;
+}
+
+li.added:before {
+   content: 'A ';
+   color: green;
+}
+li.added {
+   background-color: #bbffb3;
+}
+
+li.deleted:before {
+   content: 'D ';
+   color: red;
+}
+li.deleted {
+   background-color: #f59696;
+}
+
+li.modified:before {
+   content: 'M ';
+   color: #eb6400;
+}
+li.modified {
+   background-color: #f7e1ad;
+}
+li.replaced:before {
+   content: 'R ';
+   color: red;
+}
+li.replaced {
+   background-color: #f59696;
+}
+
+div.bad_line {
+   font-family: "Bitstream Vera Sans Mono", monospace;
+   font-size: 11px;
+   color: #eb6400;
+   background-color: #F7F4CE;
+   border-left: 4px solid #E5A33F;
+   padding: 2px;
+   padding-left: 4px;
+   margin-top: 1px;
 }
