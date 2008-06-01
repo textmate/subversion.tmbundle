@@ -7,9 +7,9 @@
 	<key>command</key>
 	<string>if [ "$TM_SELECTED_FILES" ]
 then
-	eval tmsvn_bootstrap.sh update "$TM_SELECTED_FILES"
+	eval tmsvn.rb update "$TM_SELECTED_FILES"
 else
-	tmsvn_bootstrap.sh update "$TM_FILEPATH"
+	tmsvn.rb update "$TM_FILEPATH"
 fi</string>
 	<key>input</key>
 	<string>none</string>

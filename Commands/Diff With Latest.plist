@@ -7,9 +7,9 @@
 	<key>command</key>
 	<string>if [ "$TM_SELECTED_FILES" ]
 then
-	eval tmsvn_bootstrap.sh diff --revision=HEAD "$TM_SELECTED_FILES"
+	eval tmsvn.rb diff --revision=HEAD "$TM_SELECTED_FILES"
 else
-	tmsvn_bootstrap.sh diff --revision=HEAD "$TM_FILEPATH"
+	tmsvn.rb diff --revision=HEAD "$TM_FILEPATH"
 fi
 </string>
 	<key>input</key>
