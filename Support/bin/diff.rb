@@ -7,7 +7,6 @@ require 'pathname'
 require "#{ENV['TM_SUPPORT_PATH']}/lib/ui"
 require "#{ENV['TM_SUPPORT_PATH']}/lib/exit_codes"
 require "#{ENV['TM_SUPPORT_PATH']}/lib/tm/process"
-require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/operation_helper/diff_operation"
 require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/operation_helper/revision_chooser"
 
 base = nil
@@ -47,8 +46,7 @@ unless files.empty?
     exit 0 if revision.nil?
   end
     
-  diff = Subversion::DiffOperation.new(base,revision,*files).diff
-  
+  diff = Subversion.diff_files(base,revision,files)
   if diff.empty?
     TextMate::UI.alert(:warning, "No differences to show", "The selected files/revisions are identical.", "OK")
     TextMate.exit_discard

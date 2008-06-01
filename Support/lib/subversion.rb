@@ -68,6 +68,25 @@ module Subversion
       end
     end
     
+    def diff_files(base, revision, files, user_options = {})
+      options = {:quiet => false}.merge! user_options
+      if base
+        base = Pathname.new(base)
+        files = files.map do |f| 
+          p = Pathname.new(f)
+          (p.relative?) ? p.to_s : p.relative_path_from(base).to_s
+        end
+      end
+      differ = Proc.new do
+        Dir.chdir(base) { Subversion.run("diff", "-r", revision, *files) }
+      end
+      if revision == 'BASE' or options[:quiet]
+        differ.call
+      else
+        TextMate::call_with_progress(:title => "svn diff", :message => "Fetching diff (#{revision})", &differ)
+      end
+    end
+
     def info(base, *files)
       Dir.chdir(base) do
         Subversion::Info::XmlParser.new(Subversion.run("info", "--xml", *files)).info
