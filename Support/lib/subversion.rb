@@ -92,5 +92,20 @@ module Subversion
         Subversion::Info::XmlParser.new(Subversion.run("info", "--xml", *files)).info
       end      
     end
+
+    def cat(url, revision, user_options = {})
+      options = {:quiet => false}.merge! user_options
+      catter = Proc.new { Subversion.run("cat", "--revision", revision, "#{url}@#{revision}") }
+      if options[:quiet]
+        catter.call
+      else
+        TextMate::call_with_progress(
+          :title => "svn cat", 
+          :message => "Fetching #{File.basename(url)} @ #{revision}", 
+          &catter
+        )
+      end
+
+    end
   end
 end
