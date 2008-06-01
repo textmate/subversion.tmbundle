@@ -9,6 +9,7 @@ require dir + '/model/commit_result'
 require dir + '/model/log'
 require dir + '/model/update_result'
 require dir + '/model/info'
+require dir + '/model/blame'
 
 module Subversion
   class << self
@@ -119,5 +120,34 @@ module Subversion
       end
     end
 
+    def blame(base, files, user_options = {})
+      options = {:quiet => false}.merge! user_options
+      if base
+        base = Pathname.new(base)
+        files = files.map do |f|
+          p = Pathname.new(f)
+          (p.relative?) ? p.to_s : p.relative_path_from(base).to_s
+        end
+      end
+      blame_xml = ""
+      file_contents = {}
+
+      blamer = Proc.new do
+        Dir.chdir(base) do
+          blame_xml = Subversion.run("blame", "--xml", *files)
+          files.each do |f|
+            file_contents[f] = Subversion.run("cat", "--revision", "BASE", f)
+          end
+        end
+      end
+
+      if options[:quiet]
+        blamer.call
+      else
+        TextMate::call_with_progress(:title => "svn blame", :message => "Fetching blame…", &blamer)
+      end
+
+      Subversion::Blame::XmlParser.new(blame_xml, file_contents).blame
+    end
   end
 end
