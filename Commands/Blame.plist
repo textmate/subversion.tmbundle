@@ -15,7 +15,7 @@
 	<key>name</key>
 	<string>Blame</string>
 	<key>output</key>
-	<string>showAsHTML</string>
+	<string>discard</string>
 	<key>uuid</key>
 	<string>37113D20-778A-11D9-B053-0011242E4184</string>
 </dict>
