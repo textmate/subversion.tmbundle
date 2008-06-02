@@ -48,18 +48,35 @@ module Subversion
   class Log
 
     class Entry < Hash
-      def method_missing(m, *args)
-        matches = m.to_s.match(/^(.+?)(=)?$/)
-        key = matches[1]
-        is_setter = matches[2] == '='
-        if is_setter
-          return (self[key] = args.first)
-        else
-          if self.has_key? key
-            return self[key]
-          end
-        end
-        super m, *args
+      def msg
+        self['msg']
+      end
+      def msg=(msg)
+        self['msg'] = msg
+      end
+      def rev
+        self['rev']
+      end
+      def rev=(rev)
+        self['rev'] = rev
+      end
+      def date
+        self['date']
+      end
+      def date=(date)
+        self['date'] = date
+      end
+      def author 
+        self['author']
+      end
+      def author=(author)
+        self['author'] = author
+      end
+      def paths
+        self['paths']
+      end
+      def paths=(paths)
+        self['paths'] = paths
       end
     end
     attr_reader :entries
