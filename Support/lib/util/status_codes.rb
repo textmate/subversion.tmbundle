@@ -7,6 +7,7 @@ module Subversion
       "modified" => "M",
       "merged" => "G",
       "added" => "A",
+      "updated" => "U",
       "deleted" => "D",
       "conflicted" => "C",
       "unversioned" => "?",
