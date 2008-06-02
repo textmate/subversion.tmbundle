@@ -41,7 +41,8 @@ module Subversion
       CommitResult.new(Subversion.run("commit", *args))
     end
     
-    def log(file, options = {:quiet => false, :verbose => false})
+    def log(file, user_options = {})
+      options = {:quiet => false, :verbose => false}.merge! user_options
       log_getter = Proc.new { Subversion::XmlLogParser.new(Subversion.run("log", "--xml", (options[:verbose]) ? '--verbose' : nil, file)).log }
       if options[:quiet]
         log_getter.call
@@ -50,7 +51,8 @@ module Subversion
       end
     end
     
-    def update(base, files, options = {:quiet => false})
+    def update(base, files, user_options = {})
+      options = {:quiet => false}.merge! user_options
       result = nil
       updater = Proc.new do
         Dir.chdir(base) do
