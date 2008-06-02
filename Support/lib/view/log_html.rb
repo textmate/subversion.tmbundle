@@ -24,13 +24,13 @@ module Subversion
         function cat(url, rev)
         {
           TextMate.isBusy = true;
-          TextMate.system(cat_bin + " --revision=" + rev + " --send-to-mate " + repo_url + url + " &", didFinishCommand); 
+          TextMate.system(cat_bin + " --revision=" + rev + " --send-to-mate " + repo_url + url + '@' + rev + " &", didFinishCommand); 
         }
 
         function diff(url, rev)
         {
           TextMate.isBusy = true;
-          TextMate.system(diff_bin + " --revision=" + rev + " --send-to-mate --url --change " + repo_url + url + " &", didFinishCommand);
+          TextMate.system(diff_bin + " --revision=" + rev + " --send-to-mate --url --change " + repo_url + url + '@' + rev + " &", didFinishCommand);
         }
         
         function toggle_filelist_display(base_id,show)

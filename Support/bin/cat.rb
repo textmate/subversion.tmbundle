@@ -27,7 +27,7 @@ url = ARGV.first
 content = Subversion.cat(url, revision)
   
 if send_to_mate
-  tmp = File.new((ENV['TMPDIR'] || '/tmp') + "/" + File.basename(url), "w")
+  tmp = File.new((ENV['TMPDIR'] || '/tmp') + "/" + File.basename(url.sub(/\@.+$/, '')), "w")
   tmp.write content
   tmp.flush
   out, err = TextMate::Process.run("mate", "-w", tmp.path)

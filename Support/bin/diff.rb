@@ -67,7 +67,7 @@ unless files.empty?
     TextMate.exit_discard
   else
     if send_to_mate
-      tmp = Tempfile.new(files.map{ |f| File.basename(f) }.join('-'), ENV['TMPDIR'] || '/tmp')
+      tmp = Tempfile.new(files.map{ |f| File.basename(f.sub(/\@.+$/, '')) }.join('-'), ENV['TMPDIR'] || '/tmp')
       tmp.write diff
       tmp.flush
       out, err = TextMate::Process.run("mate", "-w", tmp.path)
