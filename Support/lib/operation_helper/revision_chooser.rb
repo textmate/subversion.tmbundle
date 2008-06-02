@@ -1,4 +1,4 @@
-require "#{ENV["TM_SUPPORT_PATH"]}/lib/ui"
+  require "#{ENV["TM_SUPPORT_PATH"]}/lib/ui"
 require "#{File.dirname(__FILE__)}/../subversion.rb"
 
 module Subversion
@@ -11,7 +11,7 @@ module Subversion
     end
 
     def log
-      @log ||= Subversion.log(@path)
+      @log ||= Subversion.log(@path, :quiet => true)
     end
 
     def revision
@@ -28,9 +28,10 @@ module Subversion
 
     def choose(range = false)
       revcount = (range ? 2 : 1)
-      initial_params = {'title' => File.basename(@path), 'entries' => log.entries, 'hideProgressIndicator' => true}
+      initial_params = {'title' => File.basename(@path), 'entries' => [], 'hideProgressIndicator' => false}
       revision = nil
       TextMate::UI.dialog(:nib => @@nib, :center => true, :parameters => initial_params) do |dialog|
+        dialog.parameters = {'entries' => log.entries, 'hideProgressIndicator' => true}
         dialog.wait_for_input do |params|
           revision = params['returnArgument']
           button_clicked = params['returnButton']
