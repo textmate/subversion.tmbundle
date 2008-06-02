@@ -28,7 +28,7 @@ module Subversion
         when 'entry'
           @line_num = attributes['line-number'].to_i
         when 'commit'
-          @revision = attributes['revision']
+          @revision = attributes['revision'].to_i
         end
       end
 
