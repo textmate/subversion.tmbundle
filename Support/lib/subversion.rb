@@ -8,6 +8,7 @@ require dir + '/model/status_listing'
 require dir + '/model/commit_result'
 require dir + '/model/log'
 require dir + '/model/update_result'
+require dir + '/model/checkout_result'
 require dir + '/model/info'
 require dir + '/model/blame'
 
@@ -71,6 +72,24 @@ module Subversion
       end
     end
     
+    def checkout(base, url, user_options = {})
+      options = {:quiet => false}.merge! user_options
+      checkouter = Proc.new do
+        Dir.chdir(base) do
+          Subversion::CheckoutResult::PlainTextParser.new(base, Subversion.run("checkout", url, ".")).checkout_result
+        end
+      end        
+      if options[:quiet]
+        checkouter.call
+      else
+        TextMate::call_with_progress(
+          :title => "svn checkout", 
+          :message => "Checking out #{url}", 
+          &checkouter
+        )
+      end
+    end
+
     def diff_files(base, revision, files, user_options = {})
       options = {:quiet => false}.merge! user_options
       if base
