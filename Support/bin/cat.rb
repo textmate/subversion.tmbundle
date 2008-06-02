@@ -23,11 +23,11 @@ optparser = OptionParser.new do |optparser|
 end
 
 optparser.parse!
-url = ARGV.first
-content = Subversion.cat(url, revision)
+target = ARGV.first
+content = Subversion.cat(target, revision)
   
 if send_to_mate
-  tmp = File.new((ENV['TMPDIR'] || '/tmp') + "/" + File.basename(url.sub(/\@.+$/, '')), "w")
+  tmp = File.new((ENV['TMPDIR'] || '/tmp') + "/" + File.basename(target.sub(/\@.+$/, '')), "w")
   tmp.write content
   tmp.flush
   out, err = TextMate::Process.run("mate", "-w", tmp.path)

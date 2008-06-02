@@ -115,15 +115,15 @@ module Subversion
       end      
     end
 
-    def cat(url, revision, user_options = {})
+    def cat(target, revision, user_options = {})
       options = {:quiet => false}.merge! user_options
-      catter = Proc.new { Subversion.run("cat", "--revision", revision, url) }
+      catter = Proc.new { Subversion.run("cat", "--revision", revision, target) }
       if options[:quiet]
         catter.call
       else
         TextMate::call_with_progress(
           :title => "svn cat", 
-          :message => "Fetching #{File.basename(url).sub(/\@.+$/, '')} @ revision #{revision}", 
+          :message => "Fetching #{File.basename(target).sub(/\@.+$/, '')} @ revision #{revision}", 
           &catter
         )
       end
