@@ -47,6 +47,20 @@ module Subversion
   
   class Log
 
+    attr_reader :entries
+
+    def initialize(entries)
+      @entries = entries
+    end
+    
+    def ordered_entries
+      @entries.values.sort! {|x,y| y.rev <=> x.rev }
+    end 
+    
+    def revisions
+      @entries.keys.sort!
+    end
+
     class Entry < Hash
       def msg
         self['msg']
@@ -79,19 +93,7 @@ module Subversion
         self['paths'] = paths
       end
     end
-    attr_reader :entries
 
-    def initialize(entries)
-      @entries = entries
-    end
-    
-    def ordered_entries
-      @entries.values.sort! {|x,y| y.rev <=> x.rev }
-    end 
-    
-    def revisions
-      @entries.keys.sort!
-    end
   end
 end
 
