@@ -16,7 +16,7 @@ module Subversion
               <th class="codehead">code</th>
             </tr>
             <% lines do |num,line| %>
-            <tr>
+            <tr title="<%= path.log.entries[line.revision].msg %>">
               <td class="linecol"><%= htmlize num %></td>
               <td class="revcol<%= " current_line" if highlight_line? %>"><%= htmlize line.revision %></td>
               <td class="namecol<%= " current_line" if highlight_line? %>"><%= htmlize line.author %></td>

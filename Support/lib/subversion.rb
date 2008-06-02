@@ -152,12 +152,14 @@ module Subversion
       end
       blame_xml = ""
       file_contents = {}
+      logs = {}
 
       blamer = Proc.new do
         Dir.chdir(base) do
           blame_xml = Subversion.run("blame", "--xml", *files)
           files.each do |f|
             file_contents[f] = Subversion.run("cat", "--revision", "BASE", f)
+            logs[f] = Subversion.log(f, :quiet => true)
           end
         end
       end
@@ -168,7 +170,7 @@ module Subversion
         TextMate::call_with_progress(:title => "svn blame", :message => "Fetching blame…", &blamer)
       end
 
-      Subversion::Blame::XmlParser.new(blame_xml, file_contents).blame
+      Subversion::Blame::XmlParser.new(blame_xml, file_contents, logs).blame
     end
   end
 end
