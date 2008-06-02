@@ -41,7 +41,7 @@ module Subversion
         }
 
         </script>
-        <% entries.each_with_index do |e,i| %>
+        <% ordered_entries.each_with_index do |e,i| %>
         <table class="log <%= 'alternate' if ((i + 1) % 2) == 0 %>">
           <% r = e.rev %>
           <tr><th>Revision:</th><td><%= r %></td></tr>
@@ -93,8 +93,8 @@ module Subversion
       def repo_url
         @info.entries.first.repository.root
       end
-      def entries
-        @log.entries
+      def ordered_entries
+        @log.ordered_entries
       end
             
       def view_link_for(path, rev, action)

@@ -5,7 +5,7 @@ module Subversion
 
   class XmlLogParser
     def initialize(xml)
-      @entries = []
+      @entries = {}
       REXML::Document.parse_stream(xml, self)
     end
 
@@ -30,7 +30,7 @@ module Subversion
       when 'date'
         @current_entry[name] = Time.xmlschema(@tag_text)
       when 'logentry'
-        @entries.push @current_entry
+        @entries[@current_entry.rev] = @current_entry
       when 'path'
         @current_entry.paths[@tag_text] = @current_action
       end
@@ -67,9 +67,13 @@ module Subversion
     def initialize(entries)
       @entries = entries
     end
-
+    
+    def ordered_entries
+      @entries.values.sort! {|x,y| y.rev <=> x.rev }
+    end 
+    
     def revisions
-      @entries.collect { |entry| entry.rev }
+      @entries.keys.sort!
     end
   end
 end
