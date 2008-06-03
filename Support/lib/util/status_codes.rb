@@ -24,15 +24,15 @@ module Subversion
       "+"
     end
     
-    def wc_locked
+    def self.wc_locked
       "L"
     end
     
-    def switched
+    def self.switched
       "S"
     end
     
-    def locked
+    def self.locked
       "K"
     end
     
