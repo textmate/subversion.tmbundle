@@ -3,6 +3,7 @@
 require 'optparse'
 require File.dirname(__FILE__) + "/../lib/subversion"
 require "#{ENV['TM_SUPPORT_PATH']}/lib/tm/process"
+require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/operation_helper/revision_chooser"
 
 revision = 'HEAD'
 send_to_mate = false
@@ -24,6 +25,7 @@ end
 
 optparser.parse!
 target = ARGV.first
+revision = Subversion::RevisionChooser.new(target).revision.to_s if revision == "?"
 content = Subversion.cat(target, revision)
   
 if send_to_mate
