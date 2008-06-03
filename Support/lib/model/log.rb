@@ -3,48 +3,6 @@ require 'time'
 
 module Subversion
 
-  class XmlLogParser
-    def initialize(xml)
-      @entries = {}
-      REXML::Document.parse_stream(xml, self)
-    end
-
-    def xmldecl(*ignored)
-    end
-
-    def tag_start(name, attributes)
-      case name
-      when 'logentry'
-        @current_entry = Log::Entry.new
-        @current_entry.rev = attributes['revision'].to_i
-        @current_entry.paths = {}
-      when 'path'
-        @current_action = attributes['action']
-      end
-    end
-
-    def tag_end(name)
-      case name
-      when 'author','msg'
-        @current_entry[name] = @tag_text
-      when 'date'
-        @current_entry[name] = Time.xmlschema(@tag_text)
-      when 'logentry'
-        @entries[@current_entry.rev] = @current_entry
-      when 'path'
-        @current_entry.paths[@tag_text] = @current_action
-      end
-    end
-
-    def text(text)
-      @tag_text = text
-    end
-    
-    def log
-      Subversion::Log.new(@entries)
-    end
-  end
-  
   class Log
 
     attr_reader :entries
@@ -91,6 +49,48 @@ module Subversion
       end
       def paths=(paths)
         self['paths'] = paths
+      end
+    end
+
+    class XmlParser
+      def initialize(xml)
+        @entries = {}
+        REXML::Document.parse_stream(xml, self)
+      end
+
+      def xmldecl(*ignored)
+      end
+
+      def tag_start(name, attributes)
+        case name
+        when 'logentry'
+          @current_entry = Entry.new
+          @current_entry.rev = attributes['revision'].to_i
+          @current_entry.paths = {}
+        when 'path'
+          @current_action = attributes['action']
+        end
+      end
+
+      def tag_end(name)
+        case name
+        when 'author','msg'
+          @current_entry[name] = @tag_text
+        when 'date'
+          @current_entry[name] = Time.xmlschema(@tag_text)
+        when 'logentry'
+          @entries[@current_entry.rev] = @current_entry
+        when 'path'
+          @current_entry.paths[@tag_text] = @current_action
+        end
+      end
+
+      def text(text)
+        @tag_text = text
+      end
+
+      def log
+        Log.new(@entries)
       end
     end
 

@@ -44,7 +44,7 @@ module Subversion
     
     def log(file, user_options = {})
       options = {:quiet => false, :verbose => false}.merge! user_options
-      log_getter = Proc.new { Subversion::XmlLogParser.new(Subversion.run("log", "--xml", (options[:verbose]) ? '--verbose' : nil, file)).log }
+      log_getter = Proc.new { Subversion::Log::XmlParser.new(Subversion.run("log", "--xml", (options[:verbose]) ? '--verbose' : nil, file)).log }
       if options[:quiet]
         log_getter.call
       else
