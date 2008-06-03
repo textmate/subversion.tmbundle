@@ -4,59 +4,6 @@ require 'time'
 
 module Subversion
 
-  class XmlStatusParser
-
-    def initialize(xml)
-      @targets = []
-      REXML::Document.parse_stream(xml, self)
-    end
-
-    def xmldecl(*ignored)
-    end
-
-    def tag_start(name, attributes)
-      case name
-      when 'target'
-        @target = {'entries' => []}.merge! attributes
-      when 'entry'
-        @entry = attributes.dup
-      when 'wc-status'
-        @wc_status = attributes.dup
-      when 'commit'
-        @commit = attributes.dup
-      when 'lock'
-        @lock = {}
-      end
-    end
-
-    def tag_end(name)
-      case name
-      when 'target'
-        @targets << @target
-      when 'entry'
-        @target['entries'] << @entry
-      when 'wc-status'
-        @entry['wc-status'] = @wc_status
-      when 'author', 'date'
-        @commit[name] = (name == 'date') ? Time.xmlschema(@text) : @text
-      when 'commit'
-        @wc_status[name] = @commit
-      when 'token', 'owner', 'created'
-        @lock[name] = (name == 'created') ? Time.xmlschema(@text) : @text
-      when 'lock'
-        @wc_status[name] = @lock
-      end
-    end
-
-    def text(text)
-      @text = text
-    end
-
-    def status
-      Subversion::StatusListing.new(@targets)
-    end
-  end
-
   class StatusListing
     
     def initialize(targets)
@@ -101,6 +48,60 @@ module Subversion
         (locked) ? StatusCodes.locked : ""
       ].join('')
     end
+    
+    class XmlParser
+
+      def initialize(xml)
+        @targets = []
+        REXML::Document.parse_stream(xml, self)
+      end
+
+      def xmldecl(*ignored)
+      end
+
+      def tag_start(name, attributes)
+        case name
+        when 'target'
+          @target = {'entries' => []}.merge! attributes
+        when 'entry'
+          @entry = attributes.dup
+        when 'wc-status'
+          @wc_status = attributes.dup
+        when 'commit'
+          @commit = attributes.dup
+        when 'lock'
+          @lock = {}
+        end
+      end
+
+      def tag_end(name)
+        case name
+        when 'target'
+          @targets << @target
+        when 'entry'
+          @target['entries'] << @entry
+        when 'wc-status'
+          @entry['wc-status'] = @wc_status
+        when 'author', 'date'
+          @commit[name] = (name == 'date') ? Time.xmlschema(@text) : @text
+        when 'commit'
+          @wc_status[name] = @commit
+        when 'token', 'owner', 'created'
+          @lock[name] = (name == 'created') ? Time.xmlschema(@text) : @text
+        when 'lock'
+          @wc_status[name] = @lock
+        end
+      end
+
+      def text(text)
+        @text = text
+      end
+
+      def status
+        StatusListing.new(@targets)
+      end
+    end
+
   end
 end
 

@@ -35,7 +35,7 @@ module Subversion
     end
 
     def status(*dirs) 
-      XmlStatusParser.new(Subversion.run("status", "--xml", *dirs)).status
+      StatusListing::XmlParser.new(Subversion.run("status", "--xml", *dirs)).status
     end
 
     def commit(*args)
