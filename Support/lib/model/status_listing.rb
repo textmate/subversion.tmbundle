@@ -6,6 +6,8 @@ module Subversion
 
   class StatusListing
     
+    attr_reader :targets
+    
     def initialize(targets)
       @targets = targets
     end
