@@ -12,6 +12,12 @@ module Subversion
       @targets = targets
     end
     
+    def entries 
+      entries = []
+      @targets.each { |t| t['entries'].each { |e| entries << e } }
+      entries
+    end
+
     def commit_window_code_string()
       codes = @targets.collect do |target|
         target['entries'].collect do |entry|
