@@ -136,7 +136,7 @@
 	background: teal;
 }
 /* ?, I, X */
-.dark table.status td.unknown,
+.dark table.status td.unversioned,
 .dark table.status td.ignored,
 .dark table.status td.external {
 	color:      #edaef5;

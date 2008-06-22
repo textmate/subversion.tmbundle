@@ -136,7 +136,7 @@
 	background: teal;
 }
 /* ?, I, X */
-.shiny table.status td.unknown,
+.shiny table.status td.unversioned,
 .shiny table.status td.ignored,
 .shiny table.status td.external {
 	color:      #edaef5;

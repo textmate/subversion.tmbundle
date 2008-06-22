@@ -125,7 +125,7 @@ table.status td.status_col {
 	background: #A3CED0;
 }
 /* ?, I, X */
-.bright table.status td.unknown,
+.bright table.status td.unversioned,
 .bright table.status td.ignored,
 .bright table.status td.external {
 	color:      purple;

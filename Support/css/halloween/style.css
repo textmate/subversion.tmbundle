@@ -136,7 +136,7 @@
 	background: teal;
 }
 /* ?, I, X */
-.halloween table.status td.unknown,
+.halloween table.status td.unversioned,
 .halloween table.status td.ignored,
 .halloween table.status td.external {
 	color:      #edaef5;

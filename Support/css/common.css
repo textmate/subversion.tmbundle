@@ -150,7 +150,7 @@ table.status td.conflict, table.status td.missing, table.status td.typeconflict 
 	background: #A3CED0;
 }
 /* ?, I, X */
-table.status td.unknown, table.status td.ignored, table.status td.external {
+table.status td.unversioned, table.status td.ignored, table.status td.external {
 	color:      purple;
 	background: #edaef5;
 }
