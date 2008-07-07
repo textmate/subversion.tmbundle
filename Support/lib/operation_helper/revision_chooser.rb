@@ -31,7 +31,7 @@ module Subversion
       initial_params = {'title' => File.basename(@path), 'entries' => [], 'hideProgressIndicator' => false}
       revision = nil
       TextMate::UI.dialog(:nib => @@nib, :center => true, :parameters => initial_params) do |dialog|
-        dialog.parameters = {'entries' => log.ordered_entries, 'hideProgressIndicator' => true}
+        Thread.new { dialog.parameters = {'entries' => log.ordered_entries, 'hideProgressIndicator' => true} }
         dialog.wait_for_input do |params|
           revision = params['returnArgument']
           button_clicked = params['returnButton']
