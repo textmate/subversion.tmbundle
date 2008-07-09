@@ -57,7 +57,7 @@ module Subversion
         result = nil
         commit = proc { result = Subversion.commit("--force-log", *commit_args) }
         if show_progress
-          TextMate.call_with_progress(:title => 'Subversion Commit', :message => 'Transmitting file data', &commit)
+          TextMate.call_with_progress(:title => 'Subversion Commit', :message => 'Transmitting file data…', &commit)
         else
           commit.call
         end
