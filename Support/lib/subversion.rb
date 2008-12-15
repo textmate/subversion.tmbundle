@@ -71,7 +71,7 @@ module Subversion
       else
         TextMate::call_with_progress(
           :title => "svn update", 
-          :message => "Updating #{File.basename(base)}#{" (selection)" unless files.empty?}", 
+          :message => "Updating #{File.basename(base)}#{" (selection)" unless files.empty?}…", 
           &updater
         )
       end
