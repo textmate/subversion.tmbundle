@@ -21,23 +21,28 @@ module Subversion
 
     def run(*cmd, &error_handler)
       out, err = TextMate::Process.run(svn, cmd, :buffer => false)
-
-      if $? != 0
-        if error_handler.nil?
+    
+      if error_handler.nil?
+        if $? != 0
           TextMate::UI.alert(:critical, "The 'svn' command produced an error", err, "OK")
           exit 1
-        else
-          error_handler.call(err)
         end
       else
-        return out
+        error_handler.call($?, err)
       end
+      out
     end
-
+    
     def status(*dirs) 
-      StatusListing::XmlParser.new(Subversion.run("status", "--xml", *dirs)).status
+      out = Subversion.run("status", "--xml", *dirs) do |status,err| 
+        if err =~ /'(.+)' is not a working copy/
+          TextMate::UI.alert(:critical, "Status Unavailable", "'#{$1}' is not a subversion checkout.", "OK")
+          exit 1
+        end
+      end
+      StatusListing::XmlParser.new(out).status
     end
-
+    
     def commit(*args)
       CommitResult.new(Subversion.run("commit", *args))
     end
