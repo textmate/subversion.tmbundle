@@ -36,7 +36,8 @@ module Subversion
     def status(*dirs) 
       out = Subversion.run("status", "--xml", *dirs) do |status,err| 
         if err =~ /'(.+)' is not a working copy/
-          TextMate::UI.alert(:critical, "Status Unavailable", "'#{$1}' is not a subversion checkout.", "OK")
+          path = Pathname.new($1).realpath
+          TextMate::UI.alert(:critical, "Status Unavailable", "'#{path}' is not a working copy.", "OK")
           exit 1
         end
       end
