@@ -24,7 +24,12 @@ module Subversion
     
       if error_handler.nil?
         if $? != 0
-          TextMate::UI.alert(:critical, "The 'svn' command produced an error", err, "OK")
+          if err =~ /'(.+)' is not a working copy/
+            path = Pathname.new($1).realpath
+            TextMate::UI.alert(:critical, "#{cmd.first.capitalize} Unavailable", "'#{path}' is not a working copy.", "OK")
+          else
+            TextMate::UI.alert(:critical, "The 'svn' command produced an error", err, "OK")
+          end
           exit 1
         end
       else
