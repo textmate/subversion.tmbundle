@@ -65,6 +65,8 @@ unless files.empty?
   if diff.empty?
     TextMate::UI.alert(:warning, "No differences to show", "The selected files/revisions are identical.", "OK")
     TextMate.exit_discard
+  elsif diff.split("\n").size == 2 # An external differ was used and we just got the header svn puts on
+    TextMate.exit_discard
   else
     if send_to_mate
       tmp = Tempfile.new(files.map{ |f| File.basename(f.sub(/\@.+$/, '')) }.join('-'), ENV['TMPDIR'] || '/tmp')
