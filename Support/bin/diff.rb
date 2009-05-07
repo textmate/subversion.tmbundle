@@ -14,6 +14,7 @@ revision = 'BASE'
 change = false
 send_to_mate = false
 is_url = false
+external = false
 
 optparser = OptionParser.new do |optparser|
   optparser.banner = "Usage: #{File.basename(__FILE__)} [options] [files]"
@@ -26,6 +27,10 @@ optparser = OptionParser.new do |optparser|
   
   optparser.on("--send-to-mate", "If present, the diff will be sent to `mate` instead of STDOUT") do |s|
     send_to_mate = s
+  end
+  
+  optparser.on("--external", "Use if the script is being called from outside TextMate") do |s|
+    external = s
   end
 
   optparser.on("--url", "") do |u|
@@ -64,9 +69,9 @@ unless files.empty?
   
   if diff.empty?
     TextMate::UI.alert(:warning, "No differences to show", "The selected files/revisions are identical.", "OK")
-    TextMate.exit_discard
+    TextMate.exit_discard unless external
   elsif diff.split("\n").size == 2 # An external differ was used and we just got the header svn puts on
-    TextMate.exit_discard
+    TextMate.exit_discard unless external
   else
     if send_to_mate
       tmp = Tempfile.new(files.map{ |f| File.basename(f.sub(/\@.+$/, '')) }.join('-'), ENV['TMPDIR'] || '/tmp')
@@ -75,7 +80,8 @@ unless files.empty?
       out, err = TextMate::Process.run("mate", "-w", tmp.path)
       abort err if $? != 0
     else
-      STDOUT << diff
+      external ? $stdout << diff : TextMate.exit_create_new_document(diff)
+      
     end
   end
 end
