@@ -2,6 +2,7 @@ require 'optparse'
 require "#{ENV['TM_SUPPORT_PATH']}/lib/ui"
 require "#{ENV['TM_SUPPORT_PATH']}/lib/textmate"
 require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/subversion"
+require "#{ENV['TM_SUPPORT_PATH']}/lib/tm/notify"
 
 path_base = nil
 
@@ -29,8 +30,10 @@ unless files.empty?
     display_files = files.map{ |f| f.sub(/^#{path_base_escaped}/, '') }
   end
 
-  if TextMate::UI.request_confirmation(:title => title, :button1 => "Revert", :prompt => display_files.map{|f| "• #{f}"}.join("\n"))
-    STDOUT << Subversion.run("revert", files)
+  file_list = display_files.map{|f| "• #{f}"}.join("\n")
+  if TextMate::UI.request_confirmation(:title => title, :button1 => "Revert", :prompt => file_list)
+    Subversion.run("revert", files)
+    TextMate.notify("SVN Revert", "svn revert", file_list)
     TextMate.rescan_project
-  end  
+  end
 end

@@ -18,7 +18,7 @@ fi</string>
 	<key>name</key>
 	<string>Revert</string>
 	<key>output</key>
-	<string>showAsTooltip</string>
+	<string>discard</string>
 	<key>uuid</key>
 	<string>B9F3EC5C-B299-11D9-9356-0011242E4184</string>
 </dict>
