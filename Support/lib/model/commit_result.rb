@@ -10,7 +10,7 @@ module Subversion
 
     def to_s
       if commits?
-        out.split("\n").last.chomp('.')
+        out.split("\n").last
       else
         @out
       end
