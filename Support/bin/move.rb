@@ -9,7 +9,7 @@ unless ARGV.empty?
   end
 
   if reldir.to_s =~ /^\.\.\//
-    TextMate::UI.alert(:critical, "Invalid Move Destiation", "The selected destination is not part of the project.")
+    TextMate::UI.alert(:critical, "Invalid Move Destination", "The selected destination is not part of the project.")
     exit
   end
   
