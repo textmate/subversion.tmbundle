@@ -3,6 +3,7 @@ require 'optparse'
 require "#{ENV['TM_SUPPORT_PATH']}/lib/ui"
 require "#{ENV['TM_SUPPORT_PATH']}/lib/textmate"
 require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/operation_helper/commit_transaction"
+require "#{ENV['TM_SUPPORT_PATH']}/lib/tm/notify"
 
 output_format = :TM
 
@@ -36,7 +37,7 @@ unless ARGV.empty?
         when :plaintext
           puts result.out
         when :TM
-          TextMate::UI.alert(:informational, result.to_s, result.files.map{ |file| "• #{file}" }.join("\n"), "OK") if ENV['TM_SVN_SUPPRESS_COMMIT_NOTIFICATION'].nil?
+          TextMate.notify("SVN Commit Successful", "Commit Succeeded", result.to_s)
         end
       end
     end
@@ -47,7 +48,7 @@ unless ARGV.empty?
     when :plaintext
       puts "#{header}\n\n#{body}"
     when :TM
-      TextMate::UI.alert(:informational, header, body, "OK")
+      TextMate.notify("SVN Commit Failed", "Commit Failed", header)
     end
   end
 end
