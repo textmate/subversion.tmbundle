@@ -3,7 +3,7 @@ require 'optparse'
 require "#{ENV['TM_SUPPORT_PATH']}/lib/ui"
 require "#{ENV['TM_SUPPORT_PATH']}/lib/textmate"
 require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/operation_helper/commit_transaction"
-require "#{ENV['TM_SUPPORT_PATH']}/lib/tm/notify"
+require "#{ENV['TM_SUPPORT_PATH']}/lib/tm/event"
 
 output_format = :TM
 
@@ -37,7 +37,7 @@ unless ARGV.empty?
         when :plaintext
           puts result.out
         when :TM
-          TextMate.notify("SVN Commit Successful", "Commit Succeeded", result.to_s)
+          TextMate.event("info.scm.commit.svn", "Commit Succeeded", result.to_s)
         end
       end
     end
@@ -48,7 +48,7 @@ unless ARGV.empty?
     when :plaintext
       puts "#{header}\n\n#{body}"
     when :TM
-      TextMate.notify("SVN Commit Failed", "Commit Failed", header)
+      TextMate.event("warning.scm.commit.svn", "Commit Failed", header)
     end
   end
 end
