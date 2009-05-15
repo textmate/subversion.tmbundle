@@ -1,4 +1,4 @@
-require "#{ENV['TM_SUPPORT_PATH']}/lib/ui"
+require "#{ENV['TM_SUPPORT_PATH']}/lib/tm/event"
 require "#{ENV['TM_SUPPORT_PATH']}/lib/exit_codes"
 require "#{ENV['TM_SUPPORT_PATH']}/lib/textmate"
 require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/subversion"
@@ -15,9 +15,9 @@ if result.updates?
     view.render
     TextMate.exit_show_html
   else
-    TextMate::UI.alert(:informational, "Updated to r#{result.revision}", "No files changed.", "OK")
+    TextMate.event("info.scm.update.nochanges.svn", "Updated to r#{result.revision}", "No files changed.")
   end
 else
   msg = (ARGV.empty?) ? "You are up to date." : "The selected files are up to date."
-  TextMate::UI.alert(:informational, "Already at r#{result.revision}", msg, "OK")
+  TextMate.event("info.scm.update.noupdates.svn", "Already at r#{result.revision}", msg)
 end
