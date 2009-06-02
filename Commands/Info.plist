@@ -9,7 +9,7 @@
 then
 	eval tmsvn.rb info "$TM_SELECTED_FILES"
 else
-	tmsvn.rb info "$TM_FILEPATH"
+	tmsvn.rb info "${TM_PROJECT_DIRECTORY:-TM_DIRECTORY}"
 fi</string>
 	<key>dontFollowNewOutput</key>
 	<true/>
