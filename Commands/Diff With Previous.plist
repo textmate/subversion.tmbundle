@@ -9,9 +9,8 @@
 then
 	eval tmsvn.rb diff --revision=PREV "$TM_SELECTED_FILES"
 else
-	tmsvn.rb diff --revision=PREV "$TM_FILEPATH"
-fi
-</string>
+	tmsvn.rb diff --revision=PREV "${TM_PROJECT_DIRECTORY:-TM_DIRECTORY}"
+fi</string>
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>

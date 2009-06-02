@@ -53,8 +53,11 @@ files = ARGV
 unless files.empty?
   base = ENV['TM_PROJECT_DIRECTORY'] || ENV['TM_DIRECTORY'] || nil if base.nil?
     
-  if ["?", ":"].member? revision 
-    abort "only one file argument allowed with --revision=#{revision}" if files.length > 1
+  if ["?", ":"].member? revision
+    if files.length > 1
+      TextMate::UI.alert(:warning, "Multiple Selection Not Permitted", "When comparing aribtrary revisions, only one file or folder can be selected.", "OK") 
+      exit
+    end
     chooser = Subversion::RevisionChooser.new(files.first)
     revision = (revision == '?') ? chooser.revision : chooser.range
     exit 0 if revision.nil?

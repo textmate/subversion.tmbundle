@@ -5,7 +5,12 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>tmsvn.rb diff --revision=? "$TM_FILEPATH" --send-to-mate &gt;&amp; /dev/null &amp;</string>
+	<string>if [ "$TM_SELECTED_FILES" ]
+then
+	eval tmsvn.rb diff --revision=? "$TM_SELECTED_FILES" --send-to-mate &gt;&amp; /dev/null &amp;
+else
+	tmsvn.rb diff --revision=? "${TM_PROJECT_DIRECTORY:-TM_DIRECTORY}" --send-to-mate &gt;&amp; /dev/null &amp;
+fi</string>
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>
