@@ -19,7 +19,7 @@ fi
 	<key>name</key>
 	<string> Diff With Previous Revision (PREV)</string>
 	<key>output</key>
-	<string>openAsNewDocument</string>
+	<string>discard</string>
 	<key>uuid</key>
 	<string>37135380-74CE-11D9-813D-000A95A89C98</string>
 </dict>
