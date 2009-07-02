@@ -64,7 +64,7 @@ module Subversion
       if options[:quiet]
         log_getter.call
       else
-        TextMate::call_with_progress(:title => "svn log", :message => "Reading log of #{File.basename(file)}", &log_getter)
+        TextMate::call_with_progress(:title => "svn log", :message => "Reading log of “#{File.basename(file)}”", &log_getter)
       end
     end
     
