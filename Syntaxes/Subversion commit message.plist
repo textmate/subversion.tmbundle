@@ -8,91 +8,91 @@
 		<string>svn-commit.2.tmp</string>
 	</array>
 	<key>name</key>
-	<string>svn-commit.tmp</string>
+	<string>Subversion Commit Message</string>
 	<key>patterns</key>
 	<array>
 		<dict>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.definition.item.subversion-commit</string>
-				</dict>
-			</dict>
-			<key>match</key>
-			<string>^\s*(•).*$\n?</string>
+			<key>begin</key>
+			<string>\A(?!^--.*--$)</string>
+			<key>end</key>
+			<string>(?=^--.*--$)</string>
 			<key>name</key>
-			<string>meta.bullet-point.strong</string>
-		</dict>
-		<dict>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
+			<string>meta.scope.message.svn-commit</string>
+			<key>patterns</key>
+			<array>
 				<dict>
+					<key>begin</key>
+					<string>^\s*([•·*\-+]).*$\n?</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.item.svn-commit</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(?=^\s*([•·*\-+]|$))</string>
 					<key>name</key>
-					<string>punctuation.definition.item.subversion-commit</string>
+					<string>markup.list.unnumbered.svn-commit</string>
 				</dict>
-			</dict>
-			<key>match</key>
-			<string>^\s*(·).*$\n?</string>
-			<key>name</key>
-			<string>meta.bullet-point.light</string>
-		</dict>
-		<dict>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.definition.item.subversion-commit</string>
-				</dict>
-			</dict>
-			<key>match</key>
-			<string>^\s*(\*).*$\n?</string>
-			<key>name</key>
-			<string>meta.bullet-point.star</string>
+			</array>
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(^--(This line, and those below, will be ignored| Diese und die folgenden Zeilen werden ignoriert )--$\n?)</string>
+			<string>^--.*--$\n?</string>
 			<key>beginCaptures</key>
 			<dict>
-				<key>1</key>
+				<key>0</key>
 				<dict>
 					<key>name</key>
-					<string>meta.separator.svn</string>
+					<string>meta.separator.svn-commit</string>
 				</dict>
 			</dict>
+			<key>contentName</key>
+			<string>meta.scope.changed-files.svn-commit</string>
 			<key>end</key>
-			<string>^--not gonna happen--$</string>
+			<string>\z</string>
 			<key>name</key>
-			<string>meta.scope.changed-files.svn</string>
+			<string>meta.scope.metadata.svn-commit</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#metadata</string>
+				</dict>
+			</array>
+		</dict>
+	</array>
+	<key>repository</key>
+	<dict>
+		<key>metadata</key>
+		<dict>
 			<key>patterns</key>
 			<array>
 				<dict>
 					<key>match</key>
-					<string>^A\s+.*$\n?</string>
+					<string>^(M|.M)\s+.*$\n?</string>
 					<key>name</key>
-					<string>markup.inserted.svn</string>
+					<string>markup.changed.svn-commit</string>
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>^(M|.M)\s+.*$\n?</string>
+					<string>^A\s+.*$\n?</string>
 					<key>name</key>
-					<string>markup.changed.svn</string>
+					<string>markup.inserted.svn-commit</string>
 				</dict>
 				<dict>
 					<key>match</key>
 					<string>^D\s+.*$\n?</string>
 					<key>name</key>
-					<string>markup.deleted.svn</string>
+					<string>markup.deleted.svn-commit</string>
 				</dict>
 			</array>
 		</dict>
-	</array>
+	</dict>
 	<key>scopeName</key>
-	<string>text.subversion-commit</string>
+	<string>text.svn-commit</string>
 	<key>uuid</key>
 	<string>5B201F55-90BC-4A69-9A44-1BABE5A9FE99</string>
 </dict>
