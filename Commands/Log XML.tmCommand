@@ -5,23 +5,34 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>if [ "$TM_SELECTED_FILES" ]
+	<string>#!/usr/bin/env bash
+[[ -f "${TM_SUPPORT_PATH}/lib/bash_init.sh" ]] &amp;&amp; . "${TM_SUPPORT_PATH}/lib/bash_init.sh"
+
+if [ "$TM_SELECTED_FILES" ]
 then
 	eval tmsvn.rb log "$TM_SELECTED_FILES"
 else
 	tmsvn.rb log "${TM_PROJECT_DIRECTORY:-TM_DIRECTORY}"
 fi</string>
-	<key>dontFollowNewOutput</key>
-	<true/>
 	<key>input</key>
 	<string>none</string>
+	<key>inputFormat</key>
+	<string>text</string>
 	<key>keyEquivalent</key>
-	<string>^A</string>
+	<string>^S</string>
 	<key>name</key>
 	<string>Log</string>
-	<key>output</key>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>text</string>
+	<key>outputLocation</key>
 	<string>discard</string>
+	<key>scope</key>
+	<string>attr.scm.svn</string>
 	<key>uuid</key>
 	<string>55048B05-38AA-4B6C-A83C-7F6190F53B6C</string>
+	<key>version</key>
+	<integer>2</integer>
 </dict>
 </plist>

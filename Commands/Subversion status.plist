@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>require_cmd "${TM_SVN:=svn}" "If you have installed svn, then you need to either update your &lt;tt&gt;PATH&lt;/tt&gt; or set the &lt;tt&gt;TM_SVN&lt;/tt&gt; shell variable (e.g. in Preferences / Advanced)"
+	<string>#!/usr/bin/env bash
+[[ -f "${TM_SUPPORT_PATH}/lib/bash_init.sh" ]] &amp;&amp; . "${TM_SUPPORT_PATH}/lib/bash_init.sh"
+
+require_cmd "${TM_SVN:=svn}" "If you have installed svn, then you need to either update your &lt;tt&gt;PATH&lt;/tt&gt; or set the &lt;tt&gt;TM_SVN&lt;/tt&gt; shell variable (e.g. in Preferences / Advanced)"
 
 require_cmd "${TM_RUBY:=/usr/bin/ruby}" "We need Ruby to proceed."
 
@@ -22,17 +25,25 @@ export CommitWindow="$TM_SUPPORT_PATH/bin/CommitWindow.app/Contents/MacOS/Commit
 	eval "$TM_SVN" status "$TM_SELECTED_FILES" 2&gt;&amp;1 |"${TM_RUBY:-ruby}" -KU -- "${TM_BUNDLE_SUPPORT}/format_status.rb" "--status"
 fi; }
 </string>
-	<key>dontFollowNewOutput</key>
-	<true/>
 	<key>input</key>
 	<string>none</string>
+	<key>inputFormat</key>
+	<string>text</string>
 	<key>keyEquivalent</key>
-	<string>^A</string>
+	<string>^S</string>
 	<key>name</key>
 	<string>Status</string>
-	<key>output</key>
-	<string>showAsHTML</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>html</string>
+	<key>outputLocation</key>
+	<string>newWindow</string>
+	<key>scope</key>
+	<string>attr.scm.svn</string>
 	<key>uuid</key>
 	<string>01F140D9-749F-11D9-8199-000A95A89C98</string>
+	<key>version</key>
+	<integer>2</integer>
 </dict>
 </plist>
