@@ -14,8 +14,6 @@ tmsvn.rb checkout
 	<string>none</string>
 	<key>inputFormat</key>
 	<string>text</string>
-	<key>keyEquivalent</key>
-	<string>^S</string>
 	<key>name</key>
 	<string> Check Out…</string>
 	<key>outputCaret</key>
@@ -26,9 +24,11 @@ tmsvn.rb checkout
 	<string>discard</string>
 	<key>scope</key>
 	<string>-attr.scm</string>
+	<key>semanticClass</key>
+	<string>action.scm.new</string>
 	<key>uuid</key>
 	<string>03E4CAA8-0F74-4394-8709-4EF0E22F908B</string>
 	<key>version</key>
-	<integer>2</integer>
+	<string>2</string>
 </dict>
 </plist>

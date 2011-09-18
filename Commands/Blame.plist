@@ -13,8 +13,6 @@ tmsvn.rb blame "$TM_FILEPATH"</string>
 	<string>none</string>
 	<key>inputFormat</key>
 	<string>text</string>
-	<key>keyEquivalent</key>
-	<string>^S</string>
 	<key>name</key>
 	<string>Blame</string>
 	<key>outputCaret</key>
@@ -25,6 +23,8 @@ tmsvn.rb blame "$TM_FILEPATH"</string>
 	<string>discard</string>
 	<key>scope</key>
 	<string>attr.scm.svn</string>
+	<key>semanticClass</key>
+	<string>action.scm.blame</string>
 	<key>uuid</key>
 	<string>37113D20-778A-11D9-B053-0011242E4184</string>
 	<key>version</key>

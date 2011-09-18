@@ -18,8 +18,6 @@ fi</string>
 	<string>none</string>
 	<key>inputFormat</key>
 	<string>text</string>
-	<key>keyEquivalent</key>
-	<string>^S</string>
 	<key>name</key>
 	<string>Resolved</string>
 	<key>outputCaret</key>
@@ -30,6 +28,8 @@ fi</string>
 	<string>toolTip</string>
 	<key>scope</key>
 	<string>attr.scm.svn</string>
+	<key>semanticClass</key>
+	<string>action.scm.merge</string>
 	<key>uuid</key>
 	<string>8C299FDF-E050-4AFE-A306-491DC4C4A11A</string>
 	<key>version</key>

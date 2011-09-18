@@ -13,13 +13,12 @@ then
 	eval tmsvn.rb move "$TM_SELECTED_FILES"
 else
 	tmsvn.rb move "$TM_FILEPATH"
-fi</string>
+fi
+</string>
 	<key>input</key>
 	<string>none</string>
 	<key>inputFormat</key>
 	<string>text</string>
-	<key>keyEquivalent</key>
-	<string>^S</string>
 	<key>name</key>
 	<string>Move…</string>
 	<key>outputCaret</key>
@@ -30,9 +29,11 @@ fi</string>
 	<string>toolTip</string>
 	<key>scope</key>
 	<string>attr.scm.svn</string>
+	<key>semanticClass</key>
+	<string>action.scm.move</string>
 	<key>uuid</key>
 	<string>60749BA7-50BA-4A4B-AC1F-FCB321D9169B</string>
 	<key>version</key>
-	<integer>2</integer>
+	<string>2</string>
 </dict>
 </plist>

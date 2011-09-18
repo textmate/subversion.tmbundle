@@ -176,8 +176,6 @@ EOF
 	<string>none</string>
 	<key>inputFormat</key>
 	<string>text</string>
-	<key>keyEquivalent</key>
-	<string>^S</string>
 	<key>name</key>
 	<string>Help</string>
 	<key>outputCaret</key>
@@ -188,6 +186,8 @@ EOF
 	<string>newWindow</string>
 	<key>scope</key>
 	<string>attr.scm.svn, -attr.scm</string>
+	<key>semanticClass</key>
+	<string>action.scm.help</string>
 	<key>uuid</key>
 	<string>0CE6FB29-8467-11D9-ABBA-0011242E4184</string>
 	<key>version</key>

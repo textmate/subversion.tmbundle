@@ -18,8 +18,6 @@ fi</string>
 	<string>none</string>
 	<key>inputFormat</key>
 	<string>text</string>
-	<key>keyEquivalent</key>
-	<string>^S</string>
 	<key>name</key>
 	<string> Diff With Previous Revision (PREV)</string>
 	<key>outputCaret</key>
@@ -30,6 +28,8 @@ fi</string>
 	<string>discard</string>
 	<key>scope</key>
 	<string>attr.scm.svn</string>
+	<key>semanticClass</key>
+	<string>action.scm.diff</string>
 	<key>uuid</key>
 	<string>37135380-74CE-11D9-813D-000A95A89C98</string>
 	<key>version</key>

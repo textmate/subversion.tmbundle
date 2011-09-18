@@ -13,8 +13,6 @@ tmsvn.rb cat --revision=? "$TM_FILEPATH" --send-to-mate &gt;&amp; /dev/null &amp
 	<string>none</string>
 	<key>inputFormat</key>
 	<string>text</string>
-	<key>keyEquivalent</key>
-	<string>^S</string>
 	<key>name</key>
 	<string>View Revision…</string>
 	<key>outputCaret</key>
@@ -25,6 +23,8 @@ tmsvn.rb cat --revision=? "$TM_FILEPATH" --send-to-mate &gt;&amp; /dev/null &amp
 	<string>discard</string>
 	<key>scope</key>
 	<string>attr.scm.svn</string>
+	<key>semanticClass</key>
+	<string>action.scm.history</string>
 	<key>uuid</key>
 	<string>05DF9B5B-AB88-4597-ACD3-DD1DCEDC0BE8</string>
 	<key>version</key>

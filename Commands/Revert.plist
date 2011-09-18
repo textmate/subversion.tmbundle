@@ -18,8 +18,6 @@ fi</string>
 	<string>none</string>
 	<key>inputFormat</key>
 	<string>text</string>
-	<key>keyEquivalent</key>
-	<string>^S</string>
 	<key>name</key>
 	<string>Revert</string>
 	<key>outputCaret</key>
@@ -30,6 +28,8 @@ fi</string>
 	<string>discard</string>
 	<key>scope</key>
 	<string>attr.scm.svn</string>
+	<key>semanticClass</key>
+	<string>action.scm.revert</string>
 	<key>uuid</key>
 	<string>B9F3EC5C-B299-11D9-9356-0011242E4184</string>
 	<key>version</key>

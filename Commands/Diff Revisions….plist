@@ -13,8 +13,6 @@ tmsvn.rb diff --revision=: "$TM_FILEPATH" --send-to-mate &gt;&amp; /dev/null &am
 	<string>none</string>
 	<key>inputFormat</key>
 	<string>text</string>
-	<key>keyEquivalent</key>
-	<string>^S</string>
 	<key>name</key>
 	<string> Diff Revisions…</string>
 	<key>outputCaret</key>
@@ -25,6 +23,8 @@ tmsvn.rb diff --revision=: "$TM_FILEPATH" --send-to-mate &gt;&amp; /dev/null &am
 	<string>discard</string>
 	<key>scope</key>
 	<string>attr.scm.svn</string>
+	<key>semanticClass</key>
+	<string>action.scm.diff</string>
 	<key>uuid</key>
 	<string>C7802039-B3C4-11D9-8D63-000A95A89C98</string>
 	<key>version</key>

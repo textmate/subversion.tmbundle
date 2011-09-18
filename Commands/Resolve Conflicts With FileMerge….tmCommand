@@ -56,8 +56,6 @@ fi
 	<string>none</string>
 	<key>inputFormat</key>
 	<string>text</string>
-	<key>keyEquivalent</key>
-	<string>^S</string>
 	<key>name</key>
 	<string>Resolve Conflicts With FileMerge…</string>
 	<key>outputCaret</key>
@@ -68,9 +66,11 @@ fi
 	<string>toolTip</string>
 	<key>scope</key>
 	<string>attr.scm.svn</string>
+	<key>semanticClass</key>
+	<string>action.scm.merge</string>
 	<key>uuid</key>
 	<string>E8EE6110-2DBA-4FC1-807B-9B19B5DE6737</string>
 	<key>version</key>
-	<integer>2</integer>
+	<string>2</string>
 </dict>
 </plist>

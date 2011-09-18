@@ -13,13 +13,12 @@ then
 	eval tmsvn.rb rename "$TM_SELECTED_FILES"
 else
 	tmsvn.rb rename "$TM_FILEPATH"
-fi</string>
+fi
+</string>
 	<key>input</key>
 	<string>none</string>
 	<key>inputFormat</key>
 	<string>text</string>
-	<key>keyEquivalent</key>
-	<string>^S</string>
 	<key>name</key>
 	<string>Rename…</string>
 	<key>outputCaret</key>
@@ -30,9 +29,11 @@ fi</string>
 	<string>toolTip</string>
 	<key>scope</key>
 	<string>attr.scm.svn</string>
+	<key>semanticClass</key>
+	<string>action.scm.rename</string>
 	<key>uuid</key>
 	<string>B0012964-39F4-4AC1-B593-28A23D18E053</string>
 	<key>version</key>
-	<integer>2</integer>
+	<string>2</string>
 </dict>
 </plist>

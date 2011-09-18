@@ -26,8 +26,6 @@ fi; }
 	<string>none</string>
 	<key>inputFormat</key>
 	<string>text</string>
-	<key>keyEquivalent</key>
-	<string>^S</string>
 	<key>name</key>
 	<string>Status</string>
 	<key>outputCaret</key>
@@ -38,6 +36,8 @@ fi; }
 	<string>newWindow</string>
 	<key>scope</key>
 	<string>attr.scm.svn</string>
+	<key>semanticClass</key>
+	<string>action.scm.status</string>
 	<key>uuid</key>
 	<string>01F140D9-749F-11D9-8199-000A95A89C98</string>
 	<key>version</key>

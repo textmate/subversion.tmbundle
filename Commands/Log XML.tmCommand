@@ -13,13 +13,12 @@ then
 	eval tmsvn.rb log "$TM_SELECTED_FILES"
 else
 	tmsvn.rb log "${TM_PROJECT_DIRECTORY:-TM_DIRECTORY}"
-fi</string>
+fi
+</string>
 	<key>input</key>
 	<string>none</string>
 	<key>inputFormat</key>
 	<string>text</string>
-	<key>keyEquivalent</key>
-	<string>^S</string>
 	<key>name</key>
 	<string>Log</string>
 	<key>outputCaret</key>
@@ -30,9 +29,11 @@ fi</string>
 	<string>discard</string>
 	<key>scope</key>
 	<string>attr.scm.svn</string>
+	<key>semanticClass</key>
+	<string>action.scm.log</string>
 	<key>uuid</key>
 	<string>55048B05-38AA-4B6C-A83C-7F6190F53B6C</string>
 	<key>version</key>
-	<integer>2</integer>
+	<string>2</string>
 </dict>
 </plist>
