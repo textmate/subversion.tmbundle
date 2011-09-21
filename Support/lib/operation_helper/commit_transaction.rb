@@ -20,7 +20,7 @@ module Subversion
       @paths = paths
       @status = Subversion.status(@paths)
       @diff = ENV['TM_SVN_DIFF_CMD'] || 'diff'
-      @commit_window = ENV['CommitWindow'] || ENV['TM_SUPPORT_PATH'] + '/bin/CommitWindow.app/Contents/MacOS/CommitWindow'
+      @commit_window = ENV['CommitWindow'] || ENV['TM_SCM_COMMIT_WINDOW']
       @commit_helper = ENV['TM_BUNDLE_SUPPORT'] + "/bin/commit_helper.rb"
       @show_progress = false
     end
