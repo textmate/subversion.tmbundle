@@ -12,11 +12,6 @@
 #
 
 conflictfile="$TM_FILEPATH"
-FM="/Developer/Applications/Utilities/FileMerge.app/Contents/MacOS/FileMerge"
-
-require_cmd "${TM_SVN:=svn}" "If you have installed svn, then you need to either update your &lt;tt&gt;PATH&lt;/tt&gt; or set the &lt;tt&gt;TM_SVN&lt;/tt&gt; shell variable (e.g. in Preferences / Advanced)"
-
-require_cmd "$FM" "You must install the Apple developer tools to run FileMerge"
 
 function lookup {
 	local info=$1
@@ -49,7 +44,7 @@ if [ -z "$leftfile" ] || [ -z "$rightfile" ] || [ -z "$ancestorfile" ]; then
 fi
 
 #echo Starting FileMerge... 1&gt;&amp;2
-"$FM" -left "${filedir}/${leftfile}" -right "${filedir}/${rightfile}" -ancestor "${filedir}/${ancestorfile}" -merge "${filedir}/${mergefile}" &amp;&gt;/dev/null &amp;
+"$TM_FILEMERGE" -left "${filedir}/${leftfile}" -right "${filedir}/${rightfile}" -ancestor "${filedir}/${ancestorfile}" -merge "${filedir}/${mergefile}" &amp;&gt;/dev/null &amp;
 
 </string>
 	<key>input</key>
@@ -64,6 +59,30 @@ fi
 	<string>text</string>
 	<key>outputLocation</key>
 	<string>toolTip</string>
+	<key>requiredCommands</key>
+	<array>
+		<dict>
+			<key>command</key>
+			<string>svn</string>
+			<key>locations</key>
+			<array>
+				<string>/opt/local/bin/svn</string>
+				<string>/usr/local/bin/svn</string>
+			</array>
+			<key>variable</key>
+			<string>TM_SVN</string>
+		</dict>
+		<dict>
+			<key>command</key>
+			<string>FileMerge</string>
+			<key>locations</key>
+			<array>
+				<string>/Applications/Xcode.app/Contents/Applications/FileMerge.app/Contents/MacOS/FileMerge</string>
+			</array>
+			<key>variable</key>
+			<string>TM_FILEMERGE</string>
+		</dict>
+	</array>
 	<key>scope</key>
 	<string>attr.scm.svn</string>
 	<key>semanticClass</key>
@@ -71,6 +90,6 @@ fi
 	<key>uuid</key>
 	<string>E8EE6110-2DBA-4FC1-807B-9B19B5DE6737</string>
 	<key>version</key>
-	<string>2</string>
+	<integer>2</integer>
 </dict>
 </plist>

@@ -8,18 +8,15 @@
 	<string>#!/usr/bin/env bash
 [[ -f "${TM_SUPPORT_PATH}/lib/bash_init.sh" ]] &amp;&amp; . "${TM_SUPPORT_PATH}/lib/bash_init.sh"
 
-require_cmd "${TM_SVN:=svn}" "If you have installed svn, then you need to either update your &lt;tt&gt;PATH&lt;/tt&gt; or set the &lt;tt&gt;TM_SVN&lt;/tt&gt; shell variable (e.g. in Preferences / Advanced)"
-
-export TM_SVN
 export CommitWindow="$TM_SCM_COMMIT_WINDOW"
 
 { if [[ -z $TM_SELECTED_FILES ]]
 	then
 	export WorkPath="${TM_PROJECT_DIRECTORY:-$TM_DIRECTORY}"
 	export TM_SELECTED_FILES="'"${WorkPath//\'/\'\\\'\'}"'"
-	"$TM_SVN" status "$WorkPath" 2&gt;&amp;1| ruby -KU -- "${TM_BUNDLE_SUPPORT}/format_status.rb" "--status"
+	"${TM_SVN:-svn}" status "$WorkPath" 2&gt;&amp;1| ruby -KU -- "${TM_BUNDLE_SUPPORT}/format_status.rb" "--status"
 	else
-	eval "$TM_SVN" status "$TM_SELECTED_FILES" 2&gt;&amp;1 |ruby -KU -- "${TM_BUNDLE_SUPPORT}/format_status.rb" "--status"
+	eval "${TM_SVN:-svn}" status "$TM_SELECTED_FILES" 2&gt;&amp;1 |ruby -KU -- "${TM_BUNDLE_SUPPORT}/format_status.rb" "--status"
 fi; }
 </string>
 	<key>input</key>
@@ -34,6 +31,20 @@ fi; }
 	<string>html</string>
 	<key>outputLocation</key>
 	<string>newWindow</string>
+	<key>requiredCommands</key>
+	<array>
+		<dict>
+			<key>command</key>
+			<string>svn</string>
+			<key>locations</key>
+			<array>
+				<string>/opt/local/bin/svn</string>
+				<string>/usr/local/bin/svn</string>
+			</array>
+			<key>variable</key>
+			<string>TM_SVN</string>
+		</dict>
+	</array>
 	<key>scope</key>
 	<string>attr.scm.svn</string>
 	<key>semanticClass</key>

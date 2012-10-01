@@ -9,8 +9,6 @@ TextMate::UI.alert(:critical, "An SVN Bundle error occurred", "tmsvn.rb received
 
 ENV['TM_SVN'] ||= 'svn'
 
-TextMate.require_cmd(ENV['TM_SVN'], "If you have installed svn, then you need to either <a href=\"help:anchor='search_path'%20bookID='TextMate%20Help'\">update your <tt>PATH</tt></a> or set the <tt>TM_SVN</tt> shell variable (e.g. in Preferences / Advanced)")
-
 script = ARGV.shift
 out, err = TextMate::Process.run('ruby', "#{File.dirname(__FILE__)}/#{script}.rb", ARGV)
 

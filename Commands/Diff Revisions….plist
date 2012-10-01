@@ -21,6 +21,20 @@ tmsvn.rb diff --revision=: "$TM_FILEPATH" --send-to-mate &gt;&amp; /dev/null &am
 	<string>text</string>
 	<key>outputLocation</key>
 	<string>discard</string>
+    <key>requiredCommands</key>
+    <array>
+    	<dict>
+    		<key>command</key>
+    		<string>svn</string>
+    		<key>locations</key>
+    		<array>
+    			<string>/opt/local/bin/svn</string>
+    			<string>/usr/local/bin/svn</string>
+    		</array>
+    		<key>variable</key>
+    		<string>TM_SVN</string>
+    	</dict>
+    </array>
 	<key>scope</key>
 	<string>attr.scm.svn</string>
 	<key>semanticClass</key>

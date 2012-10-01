@@ -5,11 +5,8 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>#!/bin/bash
-#
-require_cmd "${TM_SVN:=svn}" "If you have installed svn, then you need to either update your &lt;tt&gt;PATH&lt;/tt&gt; or set the &lt;tt&gt;TM_SVN&lt;/tt&gt; shell variable (e.g. in Preferences / Advanced)"
-
-require_cmd "${TM_SVNMERGE:=svnmerge}" "If you have installed svnmerge, then you need to either update your &lt;tt&gt;PATH&lt;/tt&gt; or set the &lt;tt&gt;TM_SVNMERGE&lt;/tt&gt; shell variable (e.g. in Preferences / Advanced)"
+	<string>#!/usr/bin/env bash
+[[ -f "${TM_SUPPORT_PATH}/lib/bash_init.sh" ]] &amp;&amp; . "${TM_SUPPORT_PATH}/lib/bash_init.sh"
 
 workpath="$TM_SELECTED_FILE"
 if [[ ! -d "$workpath" ]]; then
@@ -25,7 +22,7 @@ export COLUMNS=80
 cd "$workpath"
 
 # check for no or multiple HEADs
-integratedRevs=`svn propget svnmerge-integrated "$workpath"`
+integratedRevs=`"${TM_SVN:-svn}" propget svnmerge-integrated "$workpath"`
 if [[ -z "$integratedRevs" ]]; then
 	pre &lt;&lt;&lt; "Merge tracking has not been initialized for '$workpath'"
 	exit
@@ -58,7 +55,7 @@ END`
 [[ "$theHead" = "false" ]] &amp;&amp; exit_discard
 
 
-"$TM_SVNMERGE" avail --log -S "`basename $theHead`" 2&gt;&amp;1 \
+"${TM_SVNMERGE:-svnmerge}" avail --log -S "`basename $theHead`" 2&gt;&amp;1 \
 	| ruby -- "$FORMAT_LOG" '--title=Revisions Available for Merging'
 </string>
 	<key>input</key>
@@ -73,6 +70,31 @@ END`
 	<string>html</string>
 	<key>outputLocation</key>
 	<string>newWindow</string>
+	<key>requiredCommands</key>
+	<array>
+		<dict>
+			<key>command</key>
+			<string>svn</string>
+			<key>locations</key>
+			<array>
+				<string>/opt/local/bin/svn</string>
+				<string>/usr/local/bin/svn</string>
+			</array>
+			<key>variable</key>
+			<string>TM_SVN</string>
+		</dict>
+		<dict>
+			<key>command</key>
+			<string>svnmerge</string>
+			<key>locations</key>
+			<array>
+				<string>/opt/local/bin/svnmerge</string>
+				<string>/usr/local/bin/svnmerge</string>
+			</array>
+			<key>variable</key>
+			<string>TM_SVNMERGE</string>
+		</dict>
+	</array>
 	<key>scope</key>
 	<string>attr.scm.svn</string>
 	<key>semanticClass</key>
@@ -80,6 +102,6 @@ END`
 	<key>uuid</key>
 	<string>BA4B9C28-6566-46E8-8482-9A52DCB5384D</string>
 	<key>version</key>
-	<string>2</string>
+	<integer>2</integer>
 </dict>
 </plist>
