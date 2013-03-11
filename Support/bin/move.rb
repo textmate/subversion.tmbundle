@@ -24,5 +24,4 @@ unless ARGV.empty?
     end
     $stdout << out 
   end
-  TextMate.rescan_project
 end

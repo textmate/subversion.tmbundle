@@ -9,5 +9,4 @@ unless ARGV.empty?
     out = Subversion.run("add", relative_args)
     TextMate.event("info.scm.add.svn", "svn add", out)
   end
-  TextMate.rescan_project
 end

@@ -10,7 +10,6 @@ ARGV.delete_if { |f| f == base }
 result = Subversion.update(base, ARGV)
 if result.updates?
   if result.changes?
-    TextMate.rescan_project
     view = Subversion::UpdateResult::HTMLView.new(result)
     view.render
     TextMate.exit_show_html

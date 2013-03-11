@@ -32,7 +32,6 @@ unless ARGV.empty?
     result = transaction.commit
     unless result.nil?
       if result.commits?
-        TextMate.rescan_project
         case output_format
         when :plaintext
           puts result.out

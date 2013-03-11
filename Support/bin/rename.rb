@@ -14,5 +14,4 @@ unless ARGV.empty?
       end
     end
   end
-  TextMate.rescan_project
 end
