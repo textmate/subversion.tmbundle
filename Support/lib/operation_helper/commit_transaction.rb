@@ -45,7 +45,7 @@ module Subversion
         "--action-cmd", "A:Mark Executable,#{@commit_helper},propset,svn:executable,true",
         "--action-cmd", "A,M,D,C:Revert,#{@commit_helper},revert",
         "--action-cmd", "C:Resolved,#{@commit_helper},resolved",
-        @status.paths(@base)
+        Subversion.esc(@status.paths(@base))
       )
       abort "Commit Window produced an error: #{err}" unless err.empty?
       
