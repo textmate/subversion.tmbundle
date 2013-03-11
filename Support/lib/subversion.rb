@@ -11,12 +11,25 @@ require dir + '/model/update_result'
 require dir + '/model/checkout_result'
 require dir + '/model/info'
 require dir + '/model/blame'
+require 'pathname'
 
 module Subversion
   class << self
 
     def svn
       ENV['TM_SVN'] || 'svn'
+    end
+
+    def esc(value)
+      if value.kind_of?(Array)
+        value.map { |element| esc(element) }
+      elsif value.kind_of?(Pathname)
+        esc(value.to_s)
+      elsif value.kind_of?(String) && value =~ /@/
+        value + '@'
+      else
+        value
+      end
     end
 
     def run(*cmd, &error_handler)
