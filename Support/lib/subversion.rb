@@ -129,7 +129,7 @@ module Subversion
         end
       end
       differ = Proc.new do
-        Dir.chdir(base) { Subversion.run("diff", (ENV['TM_SVN_DIFF_CMD'] ? "--diff-cmd=#{ENV['TM_SVN_DIFF_CMD']}" : ''), "-r", revision, *files) }
+        Dir.chdir(base) { Subversion.run("diff", (ENV['TM_SVN_DIFF_CMD'] ? "--diff-cmd=#{ENV['TM_SVN_DIFF_CMD']}" : nil), "-r", revision, *files) }
       end
       if revision == 'BASE' or options[:quiet]
         differ.call
@@ -161,7 +161,7 @@ module Subversion
     def diff_url(url, revision, user_options = {})
       options = {:quiet => false, :change => false}.merge! user_options
       differ = Proc.new do
-        Subversion.run("diff", (options[:change] ? "-c" : "-r"), (ENV['TM_SVN_DIFF_CMD'] ? "--diff-cmd=#{ENV['TM_SVN_DIFF_CMD']}" : ''), revision, url)
+        Subversion.run("diff", (options[:change] ? "-c" : "-r"), (ENV['TM_SVN_DIFF_CMD'] ? "--diff-cmd=#{ENV['TM_SVN_DIFF_CMD']}" : nil), revision, url)
       end
       if options[:quiet]
         differ.call
