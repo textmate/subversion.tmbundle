@@ -56,7 +56,7 @@ END`
 
 
 "${TM_SVNMERGE:-svnmerge}" avail --log -S "`basename $theHead`" 2&gt;&amp;1 \
-	| ruby -- "$FORMAT_LOG" '--title=Revisions Available for Merging'
+	| /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -- "$FORMAT_LOG" '--title=Revisions Available for Merging'
 </string>
 	<key>input</key>
 	<string>none</string>

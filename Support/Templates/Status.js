@@ -95,7 +95,7 @@ function displayCommandOutput(id, className, string){
 function svnCommit(){
 		
 	cmd  = 'cd "${TM_PROJECT_DIRECTORY:-$TM_DIRECTORY}"; '
-	cmd += 'ruby -- "$TM_BUNDLE_SUPPORT/svn_commit.rb" --output=plaintext "' + WorkPaths.join('" "') + '"'
+	cmd += '/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -- "$TM_BUNDLE_SUPPORT/svn_commit.rb" --output=plaintext "' + WorkPaths.join('" "') + '"'
 
 //	displayCommandOutput('info', 'info', cmd);
 //	document.getElementById('commandOutput').innerHTML = TextMate.system(cmd, null).outputString + ' \\n'

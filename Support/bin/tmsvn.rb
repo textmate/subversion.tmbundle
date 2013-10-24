@@ -10,7 +10,7 @@ TextMate::UI.alert(:critical, "An SVN Bundle error occurred", "tmsvn.rb received
 ENV['TM_SVN'] ||= 'svn'
 
 script = ARGV.shift
-out, err = TextMate::Process.run('ruby', "#{File.dirname(__FILE__)}/#{script}.rb", ARGV)
+out, err = TextMate::Process.run('/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby', "#{File.dirname(__FILE__)}/#{script}.rb", ARGV)
 
 STDOUT << out
 TextMate::UI.alert(:critical, "An error occurred within the Subversion bundle", err, "OK") if $? != 0 and not err.empty?
