@@ -8,6 +8,9 @@
 	<string>#!/usr/bin/env bash
 [[ -f "${TM_SUPPORT_PATH}/lib/bash_init.sh" ]] &amp;&amp; . "${TM_SUPPORT_PATH}/lib/bash_init.sh"
 
+# Fix for mate v2.5
+unset -v TM_DOCUMENT_UUID
+
 if [ "$TM_SELECTED_FILES" ]
 then
 	eval tmsvn.rb commit "$TM_SELECTED_FILES" &gt;&amp; /dev/null &amp;

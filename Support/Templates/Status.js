@@ -186,7 +186,7 @@ function openWithFinder(filename,id){
 
 function sendDiffToTextMate(filename,id){
 	TextMate.isBusy = true;
-	cmd = ENV['TM_SVN'] + ' diff --non-recursive --diff-cmd diff ' + filename + '|"$TM_SUPPORT_PATH/bin/mate" &>/dev/console &';
+	cmd = 'unset -v TM_DOCUMENT_UUID && ' + ENV['TM_SVN'] + ' diff --non-recursive --diff-cmd diff ' + filename + '|"$TM_SUPPORT_PATH/bin/mate" &>/dev/console &';
 	document.getElementById('commandOutput').innerHTML += TextMate.system(cmd, null).outputString + ' \n'
 	TextMate.isBusy = false;
 };
