@@ -61,7 +61,7 @@ function adjustActionButtonsForStatusChange( firstLetterOfNewStatus, id )
 function svnCommand(cmd, id, statusString, className){
 	TextMate.isBusy = true;
 
-	results			= TextMate.system('LC_CTYPE=en_US.UTF-8 ' + cmd, null)
+	results			= TextMate.system(cmd, null)
 	outputString	= results.outputString;
 	errorString		= results.errorString;
 	errorCode		= results.status;
@@ -95,7 +95,7 @@ function displayCommandOutput(id, className, string){
 function svnCommit(){
 		
 	cmd  = 'cd "${TM_PROJECT_DIRECTORY:-$TM_DIRECTORY}"; '
-	cmd += '/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -- "$TM_BUNDLE_SUPPORT/svn_commit.rb" --output=plaintext "' + WorkPaths.join('" "') + '"'
+	cmd += '"$TM_BUNDLE_SUPPORT/bin/commit.rb" --output=plaintext "' + WorkPaths.join('" "') + '"'
 
 //	displayCommandOutput('info', 'info', cmd);
 //	document.getElementById('commandOutput').innerHTML = TextMate.system(cmd, null).outputString + ' \\n'
@@ -147,7 +147,7 @@ function svnRevertFileConfirm(filename,id,displayname){
 	the_id          = id;
 	the_displayname = displayname;
 	the_new_status  = '?';
-	cmd = 'LC_CTYPE=en_US.UTF-8 ' + ENV['TM_BUNDLE_SUPPORT'] + '/revert_file.rb -svn=' + ENV['TM_SVN'] + ' -path=' + filename + ' -displayname=' + displayname;
+	cmd = '"$TM_BUNDLE_SUPPORT/bin/revert.rb" ' + filename;
 
 	TextMate.isBusy = true;
 	myCommand = TextMate.system(cmd, completedTask);
@@ -161,7 +161,7 @@ function svnRemoveFile(filename,id,displayname){
 	the_displayname = displayname;
 	the_new_status  = 'D';
 	TextMate.isBusy = true;
-	cmd = 'LC_CTYPE=en_US.UTF-8 ' + ENV['TM_BUNDLE_SUPPORT'] + '/remove_file.rb -svn=' + ENV['TM_SVN'] + ' -path=' + filename + ' -displayname=' + displayname;
+	cmd = '"$TM_BUNDLE_SUPPORT/bin/remove.rb" ' + filename;
 	
 	myCommand = TextMate.system(cmd, completedTask);
 	myCommand.onreadoutput = svnReadOutput;
@@ -186,7 +186,7 @@ function openWithFinder(filename,id){
 
 function sendDiffToTextMate(filename,id){
 	TextMate.isBusy = true;
-	cmd = ENV['TM_SVN'] + ' diff --non-recursive --diff-cmd diff ' + filename + '|"$TM_SUPPORT_PATH/bin/mate" &>/dev/console &';
+	cmd = ENV['TM_SVN'] + ' diff --non-recursive --diff-cmd diff ' + filename + '|"$TM_MATE" &>/dev/console &';
 	document.getElementById('commandOutput').innerHTML += TextMate.system(cmd, null).outputString + ' \n'
 	TextMate.isBusy = false;
 };

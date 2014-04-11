@@ -1,3 +1,5 @@
+#!/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby
+
 require 'optparse'
 
 require "#{ENV['TM_SUPPORT_PATH']}/lib/ui"
