@@ -12,7 +12,7 @@ if url = TextMate::UI.request_string(:prompt => "Enter Repository URL:", :title 
     result = Subversion.checkout(base.first, url)
     view = Subversion::CheckoutResult::HTMLView.new(result)
     view.render
-    TextMate::Process.run("mate", base)
+    TextMate::Process.run(ENV['TM_MATE'], base)
     TextMate.exit_show_html
   end
 end
