@@ -6,7 +6,7 @@ require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/subversion"
 require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/view/checkout_result_html"
 
 
-start = ENV['TM_PROJECT_DIRECTORY'] || ENV['TM_DIRECTORY'] || File.dirname(ENV['TM_FILEPATH'])
+start = ENV['TM_PROJECT_DIRECTORY'] || ENV['TM_DIRECTORY'] || ENV['HOME']
 if url = TextMate::UI.request_string(:prompt => "Enter Repository URL:", :title => "svn checkout")
   if base = TextMate::UI.request_file(:title => "Select Checkout Directory", :only_directories => true, :directory => start)
     result = Subversion.checkout(base.first, url)
