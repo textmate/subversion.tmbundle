@@ -9,20 +9,10 @@
 			<dict>
 				<key>action</key>
 				<string>findNext</string>
-				<key>findInProjectIgnoreCase</key>
-				<true/>
-				<key>findInProjectRegularExpression</key>
-				<false/>
 				<key>findString</key>
 				<string>(?m:&lt;&lt;&lt;&lt;&lt;&lt;&lt;[^\n]*?\n(.*?\n?)=======\n(.*?\n?)&gt;&gt;&gt;&gt;&gt;&gt;&gt;([^\n]*)\n)</string>
-				<key>ignoreCase</key>
-				<true/>
 				<key>regularExpression</key>
 				<true/>
-				<key>replaceAllScope</key>
-				<string>document</string>
-				<key>replaceString</key>
-				<string>$1</string>
 				<key>wrapAround</key>
 				<true/>
 			</dict>
@@ -34,14 +24,8 @@
 			<dict>
 				<key>action</key>
 				<string>replace</string>
-				<key>findInProjectIgnoreCase</key>
-				<true/>
-				<key>findInProjectRegularExpression</key>
-				<false/>
 				<key>findString</key>
 				<string>(?m:&lt;&lt;&lt;&lt;&lt;&lt;&lt;[^\n]*?\n(.*?\n?)=======\n(.*?\n?)&gt;&gt;&gt;&gt;&gt;&gt;&gt;([^\n]*)\n)</string>
-				<key>ignoreCase</key>
-				<true/>
 				<key>regularExpression</key>
 				<true/>
 				<key>replaceAllScope</key>
