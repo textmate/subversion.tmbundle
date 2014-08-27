@@ -161,7 +161,7 @@ module Subversion
     def diff_url(url, revision, user_options = {})
       options = {:quiet => false, :change => false}.merge! user_options
       differ = Proc.new do
-        Subversion.run("diff", (options[:change] ? "-c" : "-r"), (ENV['TM_SVN_DIFF_CMD'] ? "--diff-cmd=#{ENV['TM_SVN_DIFF_CMD']}" : nil), revision, url)
+        Subversion.run("diff", (options[:change] ? "-c" : "-r"), revision, (ENV['TM_SVN_DIFF_CMD'] ? "--diff-cmd=#{ENV['TM_SVN_DIFF_CMD']}" : nil), url)
       end
       if options[:quiet]
         differ.call
