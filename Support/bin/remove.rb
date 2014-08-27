@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby18
+
 require 'optparse'
 require "#{ENV['TM_SUPPORT_PATH']}/lib/ui"
 require "#{ENV['TM_SUPPORT_PATH']}/lib/textmate"
@@ -31,6 +33,5 @@ unless files.empty?
 
   if TextMate::UI.request_confirmation(:title => title, :prompt => display_files.map{|f| "• #{f}"}.join("\n"))
     STDOUT << Subversion.run("remove", files)
-    TextMate.rescan_project
   end  
 end

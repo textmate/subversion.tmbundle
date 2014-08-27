@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env ruby18
 
 require 'optparse'
 require File.dirname(__FILE__) + "/../lib/subversion"

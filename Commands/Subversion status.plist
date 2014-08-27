@@ -14,9 +14,9 @@ export CommitWindow="$TM_SCM_COMMIT_WINDOW"
 	then
 	export WorkPath="${TM_PROJECT_DIRECTORY:-$TM_DIRECTORY}"
 	export TM_SELECTED_FILES="'"${WorkPath//\'/\'\\\'\'}"'"
-	"${TM_SVN:-svn}" status "$WorkPath" 2&gt;&amp;1| ruby -KU -- "${TM_BUNDLE_SUPPORT}/format_status.rb" "--status"
+	"${TM_SVN:-svn}" status "$WorkPath" 2&gt;&amp;1| ruby18 -KU -- "${TM_BUNDLE_SUPPORT}/format_status.rb" "--status"
 	else
-	eval "${TM_SVN:-svn}" status "$TM_SELECTED_FILES" 2&gt;&amp;1 |ruby -KU -- "${TM_BUNDLE_SUPPORT}/format_status.rb" "--status"
+	eval "${TM_SVN:-svn}" status "$TM_SELECTED_FILES" 2&gt;&amp;1 |ruby18 -KU -- "${TM_BUNDLE_SUPPORT}/format_status.rb" "--status"
 fi; }
 </string>
 	<key>input</key>

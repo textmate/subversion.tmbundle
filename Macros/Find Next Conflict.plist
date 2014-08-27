@@ -9,33 +9,15 @@
 			<dict>
 				<key>action</key>
 				<string>findNext</string>
-				<key>findInProjectIgnoreCase</key>
-				<true/>
-				<key>findInProjectRegularExpression</key>
-				<false/>
 				<key>findString</key>
-				<string>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</string>
-				<key>ignoreCase</key>
-				<true/>
+				<string>^(?=&lt;&lt;&lt;&lt;&lt;&lt;&lt;)</string>
 				<key>regularExpression</key>
 				<true/>
-				<key>replaceAllScope</key>
-				<string>document</string>
-				<key>replaceString</key>
-				<string></string>
 				<key>wrapAround</key>
 				<true/>
 			</dict>
 			<key>command</key>
 			<string>findWithOptions:</string>
-		</dict>
-		<dict>
-			<key>command</key>
-			<string>moveToBeginningOfLine:</string>
-		</dict>
-		<dict>
-			<key>command</key>
-			<string>centerSelectionInVisibleArea:</string>
 		</dict>
 	</array>
 	<key>keyEquivalent</key>

@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby18
+
 require 'optparse'
 
 require "#{ENV['TM_SUPPORT_PATH']}/lib/ui"
@@ -32,7 +34,6 @@ unless ARGV.empty?
     result = transaction.commit
     unless result.nil?
       if result.commits?
-        TextMate.rescan_project
         case output_format
         when :plaintext
           puts result.out

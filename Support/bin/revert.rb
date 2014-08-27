@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby18
+
 require 'optparse'
 require "#{ENV['TM_SUPPORT_PATH']}/lib/ui"
 require "#{ENV['TM_SUPPORT_PATH']}/lib/textmate"
@@ -34,6 +36,5 @@ unless files.empty?
   if TextMate::UI.request_confirmation(:title => title, :button1 => "Revert", :prompt => file_list)
     Subversion.run("revert", files)
     TextMate.event("info.scm.revert.svn", "svn revert", file_list)
-    TextMate.rescan_project
   end
 end

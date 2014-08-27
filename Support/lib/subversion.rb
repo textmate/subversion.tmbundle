@@ -11,12 +11,25 @@ require dir + '/model/update_result'
 require dir + '/model/checkout_result'
 require dir + '/model/info'
 require dir + '/model/blame'
+require 'pathname'
 
 module Subversion
   class << self
 
     def svn
       ENV['TM_SVN'] || 'svn'
+    end
+
+    def esc(value)
+      if value.kind_of?(Array)
+        value.map { |element| esc(element) }
+      elsif value.kind_of?(Pathname)
+        esc(value.to_s)
+      elsif value.kind_of?(String) && value =~ /@/
+        value + '@'
+      else
+        value
+      end
     end
 
     def run(*cmd, &error_handler)
@@ -116,7 +129,7 @@ module Subversion
         end
       end
       differ = Proc.new do
-        Dir.chdir(base) { Subversion.run("diff", (ENV['TM_SVN_DIFF_CMD'] ? "--diff-cmd=#{ENV['TM_SVN_DIFF_CMD']}" : ''), "-r", revision, *files) }
+        Dir.chdir(base) { Subversion.run("diff", (ENV['TM_SVN_DIFF_CMD'] ? "--diff-cmd=#{ENV['TM_SVN_DIFF_CMD']}" : nil), "-r", revision, *files) }
       end
       if revision == 'BASE' or options[:quiet]
         differ.call
@@ -148,7 +161,7 @@ module Subversion
     def diff_url(url, revision, user_options = {})
       options = {:quiet => false, :change => false}.merge! user_options
       differ = Proc.new do
-        Subversion.run("diff", (options[:change] ? "-c" : "-r"), (ENV['TM_SVN_DIFF_CMD'] ? "--diff-cmd=#{ENV['TM_SVN_DIFF_CMD']}" : ''), revision, url)
+        Subversion.run("diff", (options[:change] ? "-c" : "-r"), (ENV['TM_SVN_DIFF_CMD'] ? "--diff-cmd=#{ENV['TM_SVN_DIFF_CMD']}" : nil), revision, url)
       end
       if options[:quiet]
         differ.call

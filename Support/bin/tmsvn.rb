@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env ruby18
 
 require ENV['TM_SUPPORT_PATH'] + '/lib/tm/process'
 require ENV['TM_SUPPORT_PATH'] + '/lib/textmate'
@@ -10,7 +10,7 @@ TextMate::UI.alert(:critical, "An SVN Bundle error occurred", "tmsvn.rb received
 ENV['TM_SVN'] ||= 'svn'
 
 script = ARGV.shift
-out, err = TextMate::Process.run('ruby', "#{File.dirname(__FILE__)}/#{script}.rb", ARGV)
+out, err = TextMate::Process.run('ruby18', "#{File.dirname(__FILE__)}/#{script}.rb", ARGV)
 
 STDOUT << out
 TextMate::UI.alert(:critical, "An error occurred within the Subversion bundle", err, "OK") if $? != 0 and not err.empty?
