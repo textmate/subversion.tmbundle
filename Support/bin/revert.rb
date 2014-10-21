@@ -4,7 +4,7 @@ require 'optparse'
 require "#{ENV['TM_SUPPORT_PATH']}/lib/ui"
 require "#{ENV['TM_SUPPORT_PATH']}/lib/textmate"
 require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/subversion"
-require "#{ENV['TM_SUPPORT_PATH']}/lib/tm/event"
+require "#{ENV['TM_SUPPORT_PATH']}/lib/ui"
 
 path_base = nil
 
@@ -35,6 +35,6 @@ unless files.empty?
   file_list = display_files.map{|f| "• #{f}"}.join("\n")
   if TextMate::UI.request_confirmation(:title => title, :button1 => "Revert", :prompt => file_list)
     Subversion.run("revert", files)
-    TextMate.event("info.scm.revert.svn", "svn revert", file_list)
+    TextMate::UI.tool_tip("<strong>svn revert</strong><p>#{htmlize file_list}</p>", :format => :html)
   end
 end
