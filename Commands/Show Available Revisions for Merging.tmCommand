@@ -63,7 +63,7 @@ END`
 	<key>inputFormat</key>
 	<string>text</string>
 	<key>name</key>
-	<string> Show Available Revisions for Merging</string>
+	<string> Show Available Revisions for Merging</string>
 	<key>outputCaret</key>
 	<string>afterOutput</string>
 	<key>outputFormat</key>

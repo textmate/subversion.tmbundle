@@ -19,7 +19,7 @@ fi</string>
 	<key>inputFormat</key>
 	<string>text</string>
 	<key>name</key>
-	<string> Diff With Previous Revision (PREV)</string>
+	<string> Diff With Previous Revision (PREV)</string>
 	<key>outputCaret</key>
 	<string>afterOutput</string>
 	<key>outputFormat</key>

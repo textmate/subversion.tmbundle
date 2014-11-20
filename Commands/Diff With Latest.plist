@@ -19,7 +19,7 @@ fi</string>
 	<key>inputFormat</key>
 	<string>text</string>
 	<key>name</key>
-	<string> Diff With Newest (HEAD)</string>
+	<string> Diff With Newest (HEAD)</string>
 	<key>outputCaret</key>
 	<string>afterOutput</string>
 	<key>outputFormat</key>

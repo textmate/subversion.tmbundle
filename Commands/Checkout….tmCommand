@@ -15,7 +15,7 @@ tmsvn.rb checkout
 	<key>inputFormat</key>
 	<string>text</string>
 	<key>name</key>
-	<string> Check Out…</string>
+	<string> Check Out…</string>
 	<key>outputCaret</key>
 	<string>afterOutput</string>
 	<key>outputFormat</key>

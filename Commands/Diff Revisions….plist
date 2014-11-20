@@ -14,7 +14,7 @@ tmsvn.rb diff --revision=: "$TM_FILEPATH" --send-to-mate &gt;&amp; /dev/null &am
 	<key>inputFormat</key>
 	<string>text</string>
 	<key>name</key>
-	<string> Diff Revisions…</string>
+	<string> Diff Revisions…</string>
 	<key>outputCaret</key>
 	<string>afterOutput</string>
 	<key>outputFormat</key>
