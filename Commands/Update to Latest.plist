@@ -12,7 +12,7 @@ if [ "$TM_SELECTED_FILES" ]
 then
 	eval tmsvn.rb update "$TM_SELECTED_FILES"
 else
-	tmsvn.rb update "$TM_FILEPATH"
+	tmsvn.rb update "${TM_PROJECT_DIRECTORY:-TM_DIRECTORY}"
 fi</string>
 	<key>input</key>
 	<string>none</string>
