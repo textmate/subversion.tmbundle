@@ -3,7 +3,7 @@
 support = ENV['TM_SUPPORT_PATH']
 require(support + "/lib/shelltokenize.rb")
 require(support + "/lib/escape.rb")
-require(support + "/lib/erb_streaming.rb")
+require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/erb_streaming.rb"
 require "cgi"
 require "erb"
 
